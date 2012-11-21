@@ -3,17 +3,17 @@ function mainLoop(canvas, context)
     update(canvas, context);
     draw(canvas, context);
     
-    window.requestAnimationFrame(
-        function()
-        {
-            mainLoop();
-        }
-    );
+    window.requestAnimFrame(function()
+    {
+        mainLoop(canvas, context);
+    });
 }
 
 function update(canvas, context)
 {
-    
+    ballx += ballVel;
+    if(ballx > canvas.width || ballx < 0)
+        ballVel *= -1;
 }
 
 function draw(canvas, context)
@@ -23,7 +23,7 @@ function draw(canvas, context)
     context.fillStyle = "black";
     context.fill();
 
-    context.translate(canvas.width / 2, canvas.height / 2);
+    context.translate(ballx, bally);
     
     context.beginPath();
     context.arc(0, 0, 6, 0, 2 * Math.PI, false);
@@ -60,4 +60,7 @@ function init()
     mainLoop(canvas, context);
 }
 
+var ballx = 272;
+var bally = 224;
+var ballVel = 2;
 window.onload = init;

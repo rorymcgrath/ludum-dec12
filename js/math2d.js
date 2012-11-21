@@ -1,18 +1,18 @@
-var Math2d = 
+var Math2d = {}
+
+Math2d.epsilon = 10e-7;
+
+Math2d.Vector2d = function(x, y)
 {
-    epsilon: 10e-7,
-    Vector2d : function(x, y)
+    if(x instanceof Math2d.Vector2d)
     {
-        if(x instanceof Math2d.Vector2d)
-        {
-            this.x = x.x;
-            this.y = x.y;
-        }
-        else
-        {
-            this.x = x;
-            this.y = y;
-        }
+        this.x = x.x;
+        this.y = x.y;
+    }
+    else
+    {
+        this.x = x;
+        this.y = y;
     }
 };
     

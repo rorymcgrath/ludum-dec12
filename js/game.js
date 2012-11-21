@@ -11,9 +11,9 @@ function mainLoop(canvas, context)
 
 function update(canvas, context)
 {
-    ballx += ballVel;
-    if(ballx > canvas.width || ballx < 0)
-        ballVel *= -1;
+    ballPos.addVector(ballVel);
+    if(ballPos.x > canvas.width || ballPos.x < 0)
+        ballVel.multiply(-1);
 }
 
 function draw(canvas, context)
@@ -23,7 +23,7 @@ function draw(canvas, context)
     context.fillStyle = "black";
     context.fill();
 
-    context.translate(ballx, bally);
+    context.translate(ballPos.x, ballPos.y);
     
     context.beginPath();
     context.arc(0, 0, 6, 0, 2 * Math.PI, false);
@@ -60,7 +60,6 @@ function init()
     mainLoop(canvas, context);
 }
 
-var ballx = 272;
-var bally = 224;
-var ballVel = 2;
+var ballPos = new Math2d.Vector2d(272, 224);
+var ballVel = new Math2d.Vector2d(2, 0);
 window.onload = init;

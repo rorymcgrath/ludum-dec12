@@ -59,10 +59,10 @@ Math2d.Vector2d.prototype.length = function()
 Math2d.Vector2d.prototype.normalize = function()
 {
     var length = this.length();
-    return length === 0 ? 0 : this.multiply(1 / length); 
+    return Math.abs(length - 0 < Math2d.epsilon) === 0 ? 0 : this.multiply(1 / length); 
 };
 
 Math2d.Vector2d.prototype.equals = function(vector)
 {
-    return (this.x - vector.x < Math2d.epsilon) && (this.y - vector.y < Math2d.epsilon);
+    return Math.abs(this.x - vector.x < Math2d.epsilon) && Math.abs(this.y - vector.y < Math2d.epsilon);
 };

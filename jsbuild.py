@@ -25,6 +25,7 @@ def buildProject(outname, templatename):
             outfile.write(line)
     template.close()
     outfile.close()
+    print "BUILD COMPLETE"
 
 if __name__ == "__main__":
     buildProject("game.js", "template.js")

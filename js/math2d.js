@@ -1,5 +1,6 @@
 var Math2d = 
 {
+    epsilon: 10e-7,
     Vector2d : function(x, y)
     {
         if(x instanceof Math2d.Vector2d)
@@ -12,48 +13,56 @@ var Math2d =
             this.x = x;
             this.y = y;
         }
-        this.multiply = function(scalar)
-        {
-            this.x *= scalar;
-            this.y *= scalar;
-        };
-        this.addScalar = function(scalar)
-        {
-            this.x += scalar; 
-            this.y += scalar;
-        };
-        this.addVector = function(vector)
-        {
-            this.x += vector.x; 
-            this.y += vector.y;
-        };
-        this.subtractScalar = function(scalar)
-        {
-            this.x -= scalar; 
-            this.y -= scalar;
-        };
-        this.subtractVector = function(vector)
-        {
-            this.x -= vector.x; 
-            this.y -= vector.y;
-        };
-        this.dotProduct = function(vector)
-        {
-            return this.x * vector.x + this.y * vector.y
-        };
-        this.length = function()
-        {
-            return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
-            //or
-            //return Math.pow(this.dotProduct(this), 0.5);
-        };
-        this.normalize = function()
-        {
-            this.multiply(1 / this.length()); 
-        };
-        this.equals = function(vector)
-        {
-            return this.x === vector.x && this.y === vector.y;
-        };
     }
+};
+    
+Math2d.Vector2d.prototype.multiply = function(scalar)
+{
+    this.x *= scalar;
+    this.y *= scalar;
+};
+
+Math2d.Vector2d.prototype.addScalar = function(scalar)
+{
+    this.x += scalar; 
+    this.y += scalar;
+};
+
+Math2d.Vector2d.prototype.addVector = function(vector)
+{
+    this.x += vector.x; 
+    this.y += vector.y;
+};
+
+Math2d.Vector2d.prototype.subtractScalar = function(scalar)
+{
+    this.x -= scalar; 
+    this.y -= scalar;
+};
+
+Math2d.Vector2d.prototype.subtractVector = function(vector)
+{
+    this.x -= vector.x; 
+    this.y -= vector.y;
+};
+
+Math2d.Vector2d.prototype.dotProduct = function(vector)
+{
+    return this.x * vector.x + this.y * vector.y
+};
+
+Math2d.Vector2d.prototype.length = function()
+{
+    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+};
+
+Math2d.Vector2d.prototype.normalize = function()
+{
+    var length = this.length();
+    return length === 0 ? 0 : this.multiply(1 / length); 
+};
+
+Math2d.Vector2d.prototype.equals = function(vector)
+{
+    return (this.x - vector.x < Math2d.epsilon) && (this.y - vector.y < Math2d.epsilon);
 };

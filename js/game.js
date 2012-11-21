@@ -1,6 +1,11 @@
 function mainLoop(canvas, context)
 {
-    update(canvas, context);
+    var now = new Date();
+    var time = now.getTime();
+    var delta = time - lastTime;
+    lastTime = time;
+    
+    update(canvas, context, delta);
     draw(canvas, context);
     
     window.requestAnimFrame(function()
@@ -9,11 +14,17 @@ function mainLoop(canvas, context)
     });
 }
 
-function update(canvas, context)
+function update(canvas, context, delta)
 {
-    ballPos.addVector(ballVel);
-    if(ballPos.x > canvas.width || ballPos.x < 0)
-        ballVel.multiply(-1);
+    var ratio = delta / 1000.0;
+    var moveVector = new Math2d.Vector2d(ballVel);
+    moveVector.multiply(ratio);
+    
+    ballPos.addVector(moveVector);
+    if(ballPos.x > canvas.width)
+        ballVel.x = Math.abs(ballVel.x) * -1;
+    else if(ballPos.x < 0)
+        ballVel.x = Math.abs(ballVel.x);
 }
 
 function draw(canvas, context)
@@ -61,5 +72,6 @@ function init()
 }
 
 var ballPos = new Math2d.Vector2d(272, 224);
-var ballVel = new Math2d.Vector2d(2, 0);
+var ballVel = new Math2d.Vector2d(50, 0);
+var lastTime = new Date().getTime();
 window.onload = init;

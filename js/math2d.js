@@ -59,7 +59,8 @@ Math2d.Vector2d.prototype.length = function()
 Math2d.Vector2d.prototype.normalize = function()
 {
     var length = this.length();
-    return Math.abs(length - 0 < Math2d.epsilon) === 0 ? 0 : this.multiply(1 / length); 
+    if(length - 0 < Math2d.epsilon)
+        this.multiply(1 / length);     
 };
 
 Math2d.Vector2d.prototype.equals = function(vector)

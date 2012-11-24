@@ -17,6 +17,8 @@ function GameStateInGame()
     this.level.data = new ClevelData();
     
     this.characterRenderer = new CharacterRenderer();
+    this.playerKinematicUpdater = new PlayerKinematicUpdater();
+    this.inGameInputHandler = new InGameInputHandler();
 
     this.loadLevel = function()
     {
@@ -28,7 +30,7 @@ function GameStateInGame()
         camera.kinematicData.position = new Vector2d(500, 500);
         
         var ball = new Entity();
-        ball.kinematicData = new CkinematicData(20, 50);
+        ball.kinematicData = new CkinematicData(3, 5);
         ball.kinematicData.position = new Vector2d(500, 600);
         //ball.kinematicData.velocity = new Vector2d(2, 0);
 
@@ -36,7 +38,9 @@ function GameStateInGame()
         image.src = "img/ball.png"
 
         ball.characterRender = new CcharacterRender(image, image);
+        ball.playerInput = new CplayerInput();
 
+        this.level.data.player = ball;
         this.level.data.camera = camera;
         this.level.data.entityList.push(ball);
         this.level.data.entityList.push(camera);
@@ -46,20 +50,10 @@ function GameStateInGame()
     this.update = function(canvas, context, delta)
     {
         var ratio = delta / 1000.0;
-        var moveVector = new Vector2d(1, 0);
-        moveVector.multiply(ratio);
-
-        var ball = this.level.data.entityList[0];
-        var p = ball.kinematicData.position;
-        var v = ball.kinematicData.velocity;
-        
-        //p.x += 2;
-        
-        //p.addVector(moveVector);
-        //if(p.x > canvas.width)
-        //    v.x = Math.abs(v.x) * -1;
-        //else if(p.x < 0)
-        //    v.x = Math.abs(v.x);
+        this.inGameInputHandler.execute(this.level.data.player, 
+            engine.inputStack, engine.inputMap);        
+        this.playerKinematicUpdater.execute(this.level.data.player, 
+            ratio);
     }
 
     this.draw = function(canvas, context)
@@ -79,8 +73,8 @@ function Engine()
     this.stateMenu = new GameStateMenu();
     this.stateInGame = new GameStateInGame();
     this.currentState = this.stateMenu;
-    this.inputStack = [];
-    this.isPressed = {};
+    this.inputQueue = [];
+    this.inputMap = {};
     
     this.setState = function(state)
     {
@@ -126,15 +120,4 @@ function Engine()
             mainLoopDelegate(canvas, context);
         });
     }  
-}
-function doKeyUp(event)
-{
-    engine.inputStack.push([event.keyCode,false]);
-    engine.isPressed[event.keyCode] = false;
-}
-
-function doKeyDown(event)
-{
-    engine.inputStack.push([event.keyCode,true]);
-    engine.isPressed[event.keyCode] = true; 
 }

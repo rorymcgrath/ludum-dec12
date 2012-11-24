@@ -1,3 +1,15 @@
+function doKeyUp(event)
+{
+    engine.inputQueue.push([event.keyCode,false]);
+    engine.inputMap[event.keyCode] = false;
+}
+
+function doKeyDown(event)
+{
+    engine.inputQueue.push([event.keyCode,true]);
+    engine.inputMap[event.keyCode] = true; 
+}
+
 function init()
 {
     engine.init();

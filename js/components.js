@@ -37,6 +37,8 @@ function ClevelData()
     this.characterList = [];
     this.camera = new Entity();
     this.player = new Entity();
+    this.tiles = [];
+    this.furniture = [];   
 }
 
 function CmenuData()
@@ -50,4 +52,10 @@ function Ctext(string, font, color)
     this.string = string || "";
     this.font = font || "";
     this.color = color || "white";
+}
+
+function CtileData()
+{
+    this.mapping = { 1:"wall" ,0:"empty",2:" enemyStart",
+        5:"playerStart",4:"door",3:"floor"}
 }

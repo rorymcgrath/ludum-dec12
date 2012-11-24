@@ -34,5 +34,7 @@ function ClevelData()
     //map etc.
     this.entityList = [];
     this.characterList = [];
+    this.camera = new Entity();
+    this.player = new Entity();
 }
 

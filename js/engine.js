@@ -5,10 +5,15 @@ function GameStateMenu()
     
     this.init = function()
     {
-        var text = entityFactory.makeText("HitBoy", "40px Georgia", "white");
-        text.kinematicData.position = new Vector2d(
-            engine.canvas.width / 2, 100);
-        this.menu.data.textList.push(text);
+        var menuText = entityFactory.makeText("HitBoy", "40px Georgia", "white");
+        menuText.kinematicData.position = new Vector2d(
+            engine.canvas.width / 2, 150);
+        var playText = entityFactory.makeText("Press SPACE to begin!", 
+            "30px Georgia", "white");
+        playText.kinematicData.position = new Vector2d(
+            engine.canvas.width / 2, 300);
+        this.menu.data.textList.push(menuText);
+        this.menu.data.textList.push(playText);
     }
     
     this.update = function(canvas, context, delta)

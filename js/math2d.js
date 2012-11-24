@@ -16,6 +16,12 @@ Vector2d.epsilon = 10e-7;
 
 Vector2d.prototype = 
 {
+    fromRads : function(rads)
+    {
+        this.x = Math.cos(rads);
+        this.y = Math.sin(rads);
+    },
+    
     multiply : function(scalar)
     {
         this.x *= scalar;

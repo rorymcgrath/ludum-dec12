@@ -1,11 +1,12 @@
-function CkinematicData(maxAcc, maxVel)
+function CkinematicData(maxAcc, maxVel, rotVel)
 {
     this.position = new Vector2d(0, 0);
     this.velocity = new Vector2d(0, 0);
     this.orientation = 0.0;
     
-    this.maxAcceleration = maxAcc;
-    this.maxVelocity = maxVel;
+    this.maxAcceleration = maxAcc || 20;
+    this.maxVelocity = maxVel || 50;
+    this.rotationVelocity = rotVel || 5;
 }
 
 function CplayerInput()

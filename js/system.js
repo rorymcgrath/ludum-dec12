@@ -47,11 +47,21 @@ function PlayerKinematicUpdater()
     {
         var facingVec;
         var k = player.kinematicData;
+        //facingVec = new Vector2d(0, 0);
+        //facingVec.fromRads(k.orientation);
+        
+        if(player.playerInput.right)
+        {
+            k.orientation += k.rotationVelocity * deltaRatio;
+        }
+        if(player.playerInput.left)
+        {
+            k.orientation -= k.rotationVelocity * deltaRatio;
+        }
+        
         facingVec = new Vector2d(0, 0);
         facingVec.fromRads(k.orientation);
         facingVec.normalize();
-        
-        //if(player.playerInput.right)
         
         if(player.playerInput.up)
         {
@@ -66,17 +76,22 @@ function PlayerKinematicUpdater()
         else
         {
             //var wasFacing = new Vector2d(facingVec);
-            facingVec.multiply(-1);
+            var newDir = new Vector2d(k.velocity);
+            //facingVec.multiply(-1);
+            newDir.multiply(-1);
 
-            facingVec.multiply(k.maxAcceleration);
-            facingVec.multiply(deltaRatio);
+            //facingVec.multiply(k.maxAcceleration);
+            //facingVec.multiply(deltaRatio);
+            newDir.multiply(k.maxAcceleration);
+            newDir.multiply(deltaRatio);
             
-            if(facingVec.length() > k.velocity.length())
+            //if(facingVec.length() > k.velocity.length())
+            if(newDir.length() > k.velocity.length())
             {
-                facingVec.normalize();
-                facingVec.multiply(k.velocity.length());
+                newDir.normalize();
+                newDir.multiply(k.velocity.length());
             }
-            k.velocity.addVector(facingVec);
+            k.velocity.addVector(newDir);
         }
         //player.playerInput.down = false;
         //player.playerInput.right = false;
@@ -88,6 +103,7 @@ function PlayerKinematicUpdater()
             k.velocity.multiply(k.maxVelocity);
         }
         k.position.addVector(k.velocity);
+        console.log(k.velocity.length());
     }
 }
 

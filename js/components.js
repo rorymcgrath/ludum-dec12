@@ -25,6 +25,8 @@ function CcharacterRender(stillImage, walkImage)
 {
     this.stillAnim = stillImage;
     this.walkAnim = walkImage;
+    this.imageOffset = 
+        new Vector2d(this.stillAnim.width / 2, this.stillAnim.height / 2);
 }
 
 function ClevelData()

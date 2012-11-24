@@ -89,7 +89,8 @@ function Engine()
     {
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
-    
+        var inputStack = [];
+        var isPressed = {};
         //set up world here and load resources
 
         //set up the main loop
@@ -124,6 +125,19 @@ function Engine()
             mainLoopDelegate(canvas, context);
         });
     }
+    
+    function doKeyUp(event)
+    {
+        inputStack.push([event.keyCode,true]);
+        isPressed[event.keyCode] = true;
+    }
+    
+    function doKeyDown(event)
+    {
+        inputStack.push([event.keyCode,false]);
+        isPressed[event.keyCode] = false; 
+    }
+  
     
 }
 

@@ -29,6 +29,7 @@ var entityFactory =
     {
         var text = new Entity();
         text.text = new Ctext(string, font);
+        text.kinematicData = new CkinematicData()
         return text;
     }
 }

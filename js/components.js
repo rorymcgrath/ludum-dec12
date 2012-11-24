@@ -45,8 +45,9 @@ function CmenuData()
     this.textList = [];
 }
 
-function Ctext(string, font)
+function Ctext(string, font, color)
 {
     this.text = string || "";
     this.font = font || "";
+    this.color = color || "white";
 }

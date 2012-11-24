@@ -1,7 +1,18 @@
 function GameStateMenu()
 {
+    this.menu = entityFactory.makeMenu();
+    
+    this.init = function()
+    {
+        var text = entityFactory.makeText("HitBoy", "", "white");
+        text.kinematicData.position = new Vector2d(
+            engine.canvas.width / 2, 100);
+        menu.data.textList.push(text);
+    }
+    
     this.update = function()
     {
+        
         engine.stateInGame.loadLevel();
         engine.setState(engine.stateInGame);
     }
@@ -83,7 +94,7 @@ function Engine(content)
     
     this.init = function()
     {
-        var canvas = document.getElementById("canvas");
+        this.canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
         //set up world here and load resources
 
@@ -101,7 +112,7 @@ function Engine(content)
             };
         })();
 
-        this.mainLoop(canvas, context);
+        this.mainLoop(this.canvas, context);
     }
     
     this.mainLoop = function(canvas, context)

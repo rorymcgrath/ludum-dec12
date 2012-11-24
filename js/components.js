@@ -33,5 +33,6 @@ function ClevelData()
 {
     //map etc.
     this.entityList = [];
+    this.characterList = [];
 }
 

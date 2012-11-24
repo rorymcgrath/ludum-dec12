@@ -15,22 +15,32 @@ function GameStateInGame()
 {
     this.level = new Entity();
     this.level.data = new ClevelData();
+    
+    this.characterRenderer = new CharacterRenderer();
 
     this.loadLevel = function()
     {
+        this.level = new Entity();
+        this.level.data = new ClevelData();
+        
+        var camera = new Entity();
+        camera.kinematicData = new CkinematicData(20, 50);
+        camera.kinematicData.position = new Vector2d(500, 500);
+        
         var ball = new Entity();
         ball.kinematicData = new CkinematicData(20, 50);
-        ball.kinematicData.position = new Vector2d(100, 100);
-        ball.kinematicData.velocity = new Vector2d(2, 0);
+        ball.kinematicData.position = new Vector2d(500, 600);
+        //ball.kinematicData.velocity = new Vector2d(2, 0);
 
         var image = new Image();
         image.src = "img/ball.png"
 
-        ball.CcharacterRender = new CcharacterRender(image, image);
+        ball.characterRender = new CcharacterRender(image, image);
 
-        this.level = new Entity();
-        this.level.data = new ClevelData();
+        this.level.data.camera = camera;
         this.level.data.entityList.push(ball);
+        this.level.data.entityList.push(camera);
+        this.level.data.characterList.push(ball);
     }
 
     this.update = function(canvas, context, delta)
@@ -43,13 +53,13 @@ function GameStateInGame()
         var p = ball.kinematicData.position;
         var v = ball.kinematicData.velocity;
         
-        p.x += 2;
+        //p.x += 2;
         
-        p.addVector(moveVector);
-        if(p.x > canvas.width)
-            v.x = Math.abs(v.x) * -1;
-        else if(p.x < 0)
-            v.x = Math.abs(v.x);
+        //p.addVector(moveVector);
+        //if(p.x > canvas.width)
+        //    v.x = Math.abs(v.x) * -1;
+        //else if(p.x < 0)
+        //    v.x = Math.abs(v.x);
     }
 
     this.draw = function(canvas, context)
@@ -58,21 +68,9 @@ function GameStateInGame()
         context.rect(0, 0, canvas.width, canvas.height);
         context.fillStyle = "black";
         context.fill();
-
-        var ball = this.level.data.entityList[0];
-        var p = ball.kinematicData.position;
-
-        context.translate(p.x, p.y);
-
-        context.beginPath();
-        context.arc(0, 0, 6, 0, 2 * Math.PI, false);
-        context.fillStyle = "red";
-        context.fill();
-        context.lineWidth = 2;
-        context.strokeStyle = "black";
-        context.stroke();
-
-        context.setTransform(1, 0, 0, 1, 0, 0);
+        
+        this.characterRenderer.execute(this.level.data.camera, 
+            canvas, context, this.level.data.characterList)
     }
 }
 

@@ -68,13 +68,14 @@ function GameStateInGame()
     }
 }
 
-function Engine()
+function Engine(content)
 {
     this.stateMenu = new GameStateMenu();
     this.stateInGame = new GameStateInGame();
     this.currentState = this.stateMenu;
     this.inputQueue = [];
     this.inputMap = {};
+    this.content = content;
     
     this.setState = function(state)
     {

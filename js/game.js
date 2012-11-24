@@ -12,6 +12,7 @@ function doKeyDown(event)
 
 function init()
 {
+    engine = new Engine(content);
     engine.init();
 }
 
@@ -22,5 +23,5 @@ function mainLoopDelegate(canvas, context)
 
 window.addEventListener('keydown', doKeyDown, true);
 window.addEventListener('keyup', doKeyUp, true);
-var engine = new Engine();
+content = new Content();
 window.onload = init;

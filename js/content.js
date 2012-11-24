@@ -1,5 +1,6 @@
 function Content()
 {
+    var level = [];
     var image = [];
     var sound = [];
     
@@ -7,6 +8,15 @@ function Content()
     {
         this.image["playerWalk"] = new Image();
         this.image["playerWalk"].src = "img/playerWalk.png";
+        
+        this.level["level01"] = new Image();
+        this.image["level01"].src = "data/level01.png";
+        
+    }
+    
+    this.getLevel = function(lvl)
+    {
+        return level[lvl];
     }
     
     this.getImage = function(img)
@@ -18,4 +28,6 @@ function Content()
     {
         return sound[snd];
     }
+    
+    this.load();
 }

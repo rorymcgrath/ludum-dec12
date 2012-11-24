@@ -24,8 +24,8 @@ function CmotionRequest()
 
 function CcharacterRender(stillImage, walkImage)
 {
-    this.stillAnim = stillImage;
-    this.walkAnim = walkImage;
+    this.stillAnim = stillImage || new Image();
+    this.walkAnim = walkImage || new Image();
     this.imageOffset = 
         new Vector2d(this.stillAnim.width / 2, this.stillAnim.height / 2);
 }
@@ -39,3 +39,14 @@ function ClevelData()
     this.player = new Entity();
 }
 
+function CmenuData()
+{
+    this.buttonList = [];
+    this.textList = [];
+}
+
+function Ctext(string, font)
+{
+    this.text = string || "";
+    this.font = font || "";
+}

@@ -2,6 +2,8 @@
 
 //#include js/math2d.js
 
+//#include js/factory.js
+
 //#include js/system.js
 
 //#include js/entity.js

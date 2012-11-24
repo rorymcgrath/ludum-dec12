@@ -12,4 +12,6 @@
 
 //#include js/game.js
 
+//#include js/content.js
+
 //#include js/level.js

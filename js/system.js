@@ -47,8 +47,6 @@ function PlayerKinematicUpdater()
     {
         var facingVec;
         var k = player.kinematicData;
-        //facingVec = new Vector2d(0, 0);
-        //facingVec.fromRads(k.orientation);
         
         if(player.playerInput.right)
         {
@@ -63,9 +61,16 @@ function PlayerKinematicUpdater()
         facingVec.fromRads(k.orientation);
         facingVec.normalize();
         
-        if(player.playerInput.up)
+        if(player.playerInput.up && !player.playerInput.down)
         {
             facingVec.multiply(k.maxAcceleration);
+            facingVec.multiply(deltaRatio);
+            k.velocity.addVector(facingVec);
+        }
+        else if(player.playerInput.down && !player.playerInput.up)
+        {
+            facingVec.multiply(-1);
+            facingVec.multiply(k.maxAcceleration / 2);
             facingVec.multiply(deltaRatio);
             k.velocity.addVector(facingVec);
         }
@@ -75,17 +80,12 @@ function PlayerKinematicUpdater()
         }
         else
         {
-            //var wasFacing = new Vector2d(facingVec);
             var newDir = new Vector2d(k.velocity);
-            //facingVec.multiply(-1);
             newDir.multiply(-1);
 
-            //facingVec.multiply(k.maxAcceleration);
-            //facingVec.multiply(deltaRatio);
             newDir.multiply(k.maxAcceleration);
             newDir.multiply(deltaRatio);
             
-            //if(facingVec.length() > k.velocity.length())
             if(newDir.length() > k.velocity.length())
             {
                 newDir.normalize();
@@ -93,10 +93,6 @@ function PlayerKinematicUpdater()
             }
             k.velocity.addVector(newDir);
         }
-        //player.playerInput.down = false;
-        //player.playerInput.right = false;
-        //player.playerInput.left = false;
-
         if(k.velocity.length() > k.maxVelocity)
         {
             k.velocity.normalize();

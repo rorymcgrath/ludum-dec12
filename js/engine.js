@@ -26,11 +26,11 @@ function GameStateInGame()
         this.level.data = new ClevelData();
         
         var camera = new Entity();
-        camera.kinematicData = new CkinematicData(20, 50);
+        camera.kinematicData = new CkinematicData();
         camera.kinematicData.position = new Vector2d(500, 500);
         
         var ball = new Entity();
-        ball.kinematicData = new CkinematicData(3, 5);
+        ball.kinematicData = new CkinematicData(6, 3);
         ball.kinematicData.position = new Vector2d(500, 600);
         //ball.kinematicData.velocity = new Vector2d(2, 0);
 

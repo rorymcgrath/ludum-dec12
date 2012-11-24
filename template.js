@@ -1,3 +1,5 @@
+//#include js/constants.js
+
 //#include js/math2d.js
 
 //#include js/system.js

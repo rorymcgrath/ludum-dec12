@@ -79,6 +79,8 @@ function Engine()
     this.stateMenu = new GameStateMenu();
     this.stateInGame = new GameStateInGame();
     this.currentState = this.stateMenu;
+    this.inputStack = [];
+    this.isPressed = {};
     
     this.setState = function(state)
     {
@@ -89,8 +91,6 @@ function Engine()
     {
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
-        var inputStack = [];
-        var isPressed = {};
         //set up world here and load resources
 
         //set up the main loop
@@ -124,20 +124,17 @@ function Engine()
         {
             mainLoopDelegate(canvas, context);
         });
-    }
-    
-    function doKeyUp(event)
-    {
-        inputStack.push([event.keyCode,true]);
-        isPressed[event.keyCode] = true;
-    }
-    
-    function doKeyDown(event)
-    {
-        inputStack.push([event.keyCode,false]);
-        isPressed[event.keyCode] = false; 
-    }
-  
-    
+    }  
+}
+function doKeyUp(event)
+{
+    engine.inputStack.push([event.keyCode,false]);
+    engine.isPressed[event.keyCode] = false;
+}
+
+function doKeyDown(event)
+{
+    engine.inputStack.push([event.keyCode,true]);
+    engine.isPressed[event.keyCode] = true; 
 }
 

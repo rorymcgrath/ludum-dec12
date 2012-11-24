@@ -58,7 +58,7 @@ Vector2d.prototype =
     normalize : function()
     {
         var length = this.length();
-        if(length - 0 < Math2d.epsilon)
+        if(length - 0 < Vector2d.epsilon)
             this.multiply(1 / length);     
     },
     equals : function(vector)

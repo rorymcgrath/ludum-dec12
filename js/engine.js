@@ -34,10 +34,9 @@ function GameStateInGame()
         ball.kinematicData.position = new Vector2d(500, 600);
         //ball.kinematicData.velocity = new Vector2d(2, 0);
 
-        var image = new Image();
-        image.src = "img/ball.png"
-
-        ball.characterRender = new CcharacterRender(image, image);
+        ball.characterRender = new CcharacterRender(
+            engine.content.getImage("playerWalk"), 
+            engine.content.getImage("playerWalk"));
         ball.playerInput = new CplayerInput();
 
         this.level.data.player = ball;

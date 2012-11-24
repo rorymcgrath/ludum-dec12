@@ -6,11 +6,11 @@ function Content()
     
     this.load = function()
     {
-        this.image["playerWalk"] = new Image();
-        this.image["playerWalk"].src = "img/playerWalk.png";
+        image["playerWalk"] = new Image();
+        image["playerWalk"].src = "img/playerWalk.png";
         
-        this.level["level01"] = new Image();
-        this.image["level01"].src = "data/level01.png";
+        level["level01"] = new Image();
+        level["level01"].src = "data/level01.png";
         
     }
     

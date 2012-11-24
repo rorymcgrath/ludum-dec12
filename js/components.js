@@ -8,6 +8,19 @@ function CkinematicData(maxAcc, maxVel)
     this.maxVelocity = maxVel;
 }
 
+function CplayerInput()
+{
+    this.left = false;
+    this.right = false;
+    this.up = false;
+    this.down = false;
+}
+
+function CmotionRequest()
+{
+    this.target = new Vector2d(0, 0);
+}
+
 function CcharacterRender(stillImage, walkImage)
 {
     this.stillAnim = stillImage;

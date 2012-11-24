@@ -47,7 +47,7 @@ function CmenuData()
 
 function Ctext(string, font, color)
 {
-    this.text = string || "";
+    this.string = string || "";
     this.font = font || "";
     this.color = color || "white";
 }

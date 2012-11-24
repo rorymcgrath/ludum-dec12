@@ -118,6 +118,7 @@ function Engine()
         this.lastTime = time;
 
         this.currentState.update(canvas, context, delta);
+        this.inputStack = [];
         this.currentState.draw(canvas, context);
 
         window.requestAnimFrame(function()
@@ -137,4 +138,3 @@ function doKeyDown(event)
     engine.inputStack.push([event.keyCode,true]);
     engine.isPressed[event.keyCode] = true; 
 }
-

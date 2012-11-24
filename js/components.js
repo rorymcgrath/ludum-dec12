@@ -1,11 +1,22 @@
-function CkinematicData()
+function CkinematicData(maxAcc, maxVel)
 {
     this.position = new Vector2d(0, 0);
     this.velocity = new Vector2d(0, 0);
-    this.orientation = 0.0;    
+    this.orientation = 0.0;
+    
+    this.maxAcceleration = maxAcc;
+    this.maxVelocity = maxVel;
 }
 
-function CcharacterRender(image)
+function CcharacterRender(stillImage, walkImage)
 {
-    this.walkAnim = image;
+    this.stillAnim = stillImage;
+    this.walkAnim = walkImage;
 }
+
+function ClevelData()
+{
+    //map etc.
+    this.entityList = [];
+}
+

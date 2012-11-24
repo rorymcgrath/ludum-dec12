@@ -1,52 +1,93 @@
-var GameState = 
+function GameStateMenu()
 {
-    menu: 
+    this.update = function()
     {
-        update : function(canvas, context, delta)
-        {
-            var ratio = delta / 1000.0;
-            var moveVector = new Math2d.Vector2d(ballVel);
-            moveVector.multiply(ratio);
-
-            ballPos.addVector(moveVector);
-            if(ballPos.x > canvas.width)
-                ballVel.x = Math.abs(ballVel.x) * -1;
-            else if(ballPos.x < 0)
-                ballVel.x = Math.abs(ballVel.x);
-        },
-
-        draw : function(canvas, context)
-        {
-            context.beginPath();
-            context.rect(0, 0, canvas.width, canvas.height);
-            context.fillStyle = "black";
-            context.fill();
-
-            context.translate(ballPos.x, ballPos.y);
-
-            context.beginPath();
-            context.arc(0, 0, 6, 0, 2 * Math.PI, false);
-            context.fillStyle = "red";
-            context.fill();
-            context.lineWidth = 2;
-            context.strokeStyle = "black";
-            context.stroke();
-
-            context.setTransform(1, 0, 0, 1, 0, 0);
-        }
-    },
-        
-    inGame: 
+        engine.stateInGame.loadLevel();
+        engine.setState(engine.stateInGame);
+    }
+    this.draw = function()
     {
-        
+
     }
 }
 
-var engine = 
+function GameStateInGame()
 {
-    currentState : GameState.menu,
-    lastTime : new Date().getTime(),
-    init : function()
+    this.level = new Entity();
+    this.level.data = new ClevelData();
+
+    this.loadLevel = function()
+    {
+        var ball = new Entity();
+        ball.kinematicData = new CkinematicData(20, 50);
+        ball.kinematicData.position = new Vector2d(100, 100);
+        ball.kinematicData.velocity = new Vector2d(2, 0);
+
+        var image = new Image();
+        image.src = "img/ball.png"
+
+        ball.CcharacterRender = new CcharacterRender(image, image);
+
+        this.level = new Entity();
+        this.level.data = new ClevelData();
+        this.level.data.entityList.push(ball);
+    }
+
+    this.update = function(canvas, context, delta)
+    {
+        var ratio = delta / 1000.0;
+        var moveVector = new Vector2d(1, 0);
+        moveVector.multiply(ratio);
+
+        var ball = this.level.data.entityList[0];
+        var p = ball.kinematicData.position;
+        var v = ball.kinematicData.velocity;
+        
+        p.x += 2;
+        
+        p.addVector(moveVector);
+        if(p.x > canvas.width)
+            v.x = Math.abs(v.x) * -1;
+        else if(p.x < 0)
+            v.x = Math.abs(v.x);
+    }
+
+    this.draw = function(canvas, context)
+    {
+        context.beginPath();
+        context.rect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "black";
+        context.fill();
+
+        var ball = this.level.data.entityList[0];
+        var p = ball.kinematicData.position;
+
+        context.translate(p.x, p.y);
+
+        context.beginPath();
+        context.arc(0, 0, 6, 0, 2 * Math.PI, false);
+        context.fillStyle = "red";
+        context.fill();
+        context.lineWidth = 2;
+        context.strokeStyle = "black";
+        context.stroke();
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+    }
+}
+
+function Engine()
+{
+    this.stateMenu = new GameStateMenu();
+    this.stateInGame = new GameStateInGame();
+    this.currentState = this.stateMenu;
+    
+    this.setState = function(state)
+    {
+        this.currentState = state;
+    }
+    
+    this.init = function()
     {
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
@@ -67,10 +108,10 @@ var engine =
             };
         })();
 
-    this.mainLoop(canvas, context);
-    },
+        this.mainLoop(canvas, context);
+    }
     
-    mainLoop : function(canvas, context)
+    this.mainLoop = function(canvas, context)
     {
         var now = new Date();
         var time = now.getTime();
@@ -82,8 +123,9 @@ var engine =
 
         window.requestAnimFrame(function()
         {
-            engine.mainLoop(canvas, context);
+            mainLoopDelegate(canvas, context);
         });
     }
-};
+    
+}
 

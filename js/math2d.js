@@ -1,22 +1,20 @@
-var Math2d = 
+function Vector2d(x, y)
 {
-    epsilon : 10e-7,
-    Vector2d : function(x, y)
+    if(x instanceof Vector2d)
     {
-        if(x instanceof Math2d.Vector2d)
-        {
-            this.x = x.x;
-            this.y = x.y;
-        }
-        else
-        {
-            this.x = x;
-            this.y = y;
-        }
+        this.x = x.x;
+        this.y = x.y;
+    }
+    else
+    {
+        this.x = x;
+        this.y = y;
     }
 }
 
-Math2d.Vector2d.prototype = 
+Vector2d.epsilon = 10e-7;
+
+Vector2d.prototype = 
 {
     multiply : function(scalar)
     {
@@ -59,6 +57,7 @@ Math2d.Vector2d.prototype =
     },
     equals : function(vector)
     {
-        return Math.abs(this.x - vector.x < Math2d.epsilon) && Math.abs(this.y - vector.y < Math2d.epsilon);
+        return Math.abs(this.x - vector.x < Vector2d.epsilon) 
+            && Math.abs(this.y - vector.y < Vector2d.epsilon);
     }
 }

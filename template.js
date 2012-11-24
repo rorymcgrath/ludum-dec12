@@ -4,7 +4,11 @@
 
 //#include js/factory.js
 
-//#include js/system.js
+//#include js/system_general.js
+
+//#include js/system_render.js
+
+//#include js/system_kinematic.js
 
 //#include js/entity.js
 

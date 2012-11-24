@@ -73,9 +73,32 @@ function TextRenderer()
                 var oldFont = context.font;
                 context.font = t.text.font;
                 context.fillStyle = t.text.color;
-                context.fillText(t.text.string);
+                context.fillText(t.text.string, p.x, p.y);
                 context.font = oldFont;
             }
+        }
+    }
+}
+
+function MenuTextRenderer()
+{
+    this.execute = function(context, textList)
+    {
+        for(var t in textList)
+        {
+            t = textList[t];
+            var oldFont = context.font;
+            context.font = t.text.font;
+            
+            var p = t.kinematicData.position;
+            var textWidth = context.measureText(t.text.string);
+            var textOffset = new Vector2d(textWidth.width / 2, 0);
+            var drawPos = new Vector2d(p);
+            drawPos.subtractVector(textOffset);
+            
+            context.fillStyle = t.text.color;
+            context.fillText(t.text.string, drawPos.x, drawPos.y);
+            context.font = oldFont;
         }
     }
 }

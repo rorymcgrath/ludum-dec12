@@ -28,7 +28,7 @@ var entityFactory =
     makeText : function(string, font)
     {
         var text = new Entity();
-        text.text = new Ctext(string, font);
+        text.text = new Ctext(string || "DEFAULT", font || "Arial 20");
         text.kinematicData = new CkinematicData()
         return text;
     }

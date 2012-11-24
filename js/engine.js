@@ -1,24 +1,29 @@
 function GameStateMenu()
 {
     this.menu = entityFactory.makeMenu();
+    this.textRenderer = new MenuTextRenderer();
     
     this.init = function()
     {
-        var text = entityFactory.makeText("HitBoy", "", "white");
+        var text = entityFactory.makeText("HitBoy", "40px Georgia", "white");
         text.kinematicData.position = new Vector2d(
             engine.canvas.width / 2, 100);
-        menu.data.textList.push(text);
+        this.menu.data.textList.push(text);
     }
     
-    this.update = function()
+    this.update = function(canvas, context, delta)
     {
-        
-        engine.stateInGame.loadLevel();
-        engine.setState(engine.stateInGame);
+        //engine.stateInGame.loadLevel();
+        //engine.setState(engine.stateInGame);
     }
-    this.draw = function()
+    this.draw = function(canvas, context)
     {
-
+        context.beginPath();
+        context.rect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "black";
+        context.fill();
+        
+        this.textRenderer.execute(context, this.menu.data.textList)
     }
 }
 
@@ -111,7 +116,8 @@ function Engine(content)
                 window.setTimeout(callback, 1000 / 60);
             };
         })();
-
+        
+        this.stateMenu.init();
         this.mainLoop(this.canvas, context);
     }
     

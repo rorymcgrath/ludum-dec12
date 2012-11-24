@@ -103,7 +103,6 @@ function PlayerKinematicUpdater()
             k.velocity.multiply(k.maxVelocity);
         }
         k.position.addVector(k.velocity);
-        console.log(k.velocity.length());
     }
 }
 

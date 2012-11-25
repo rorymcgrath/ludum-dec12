@@ -11,7 +11,6 @@ function Content()
         
         level["level01"] = new Image();
         level["level01"].src = "data/level01.png";
-        
     }
     
     this.getLevel = function(lvl)

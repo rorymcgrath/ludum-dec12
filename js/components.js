@@ -56,9 +56,3 @@ function Ctext(string, font, color)
     this.font = font || "";
     this.color = color || "white";
 }
-
-function CtileData()
-{
-    this.mapping = { 1:"wall" ,0:"empty",2:" enemyStart",
-        5:"playerStart",4:"door",3:"floor"}
-}

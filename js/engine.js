@@ -49,7 +49,7 @@ function GameStateInGame()
     this.loadLevel = function()
     {
         var levelName = 'level01';
-        var testing = loadlevel(levelName);
+        var testing = loadLevel(levelName);
         this.level = new Entity();
         this.level.data = new ClevelData();
         

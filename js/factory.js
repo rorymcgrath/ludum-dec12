@@ -9,13 +9,14 @@ var entityFactory =
         return npc;
     },
     
-    makePC : function()
+    makePC : function(maxAcc, maxVel, rotVel, stillImage, walkImage)
     {
         var pc = new Entity();
-        pc.kinematicData = new CkinematicData();
+        pc.kinematicData = new CkinematicData(maxAcc, maxVel, rotVel);
         pc.motionRequest = new CmotionRequest();
-        pc.CcharacterRender = new CcharacterRender();
-        pc.playerInput() = new CplayerInput();
+        pc.CcharacterRender = new CcharacterRender(stillImage, walkImage);
+        pc.playerInput = new CplayerInput();
+        return pc;
     },
     
     makeMenu : function()

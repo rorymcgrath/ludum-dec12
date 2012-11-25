@@ -77,7 +77,12 @@ function loadLevel(levelName)
                     guard.kinematicData.position = new Vector2d(
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
+                    
+                    guard.motionRequest.target = playerStartPosition;
+                    guard.motionRequest.facing = playerStartPosition;
+                        
                     level.data.characterList.push(guard);
+                    level.data.aiList.push(guard);
                 }
                 else if(furnitureData.data[val].name === "BOSS_POSITION")
                 {
@@ -88,6 +93,7 @@ function loadLevel(levelName)
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
                     level.data.characterList.push(boss);
+                    level.data.aiList.push(boss);
                 }
                 
                 furnitureRow.push(val);
@@ -95,6 +101,8 @@ function loadLevel(levelName)
             }
             else
             {
+                if(val === undefined)
+                    val = 0;
                 furnitureRow.push(0);
                 tileRow.push(val);
             }

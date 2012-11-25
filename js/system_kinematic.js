@@ -62,36 +62,56 @@ function PlayerKinematicUpdater()
 
 function AiKinematicUpdater()
 {
-    this.execute = function(entity, deltaRatio)
+    this.execute = function(entityList, deltaRatio)
     {
-        //rotate to face desired facing
-        var currentFacing = new Vector2d(0, 0);
-        currentFacing.fromRads(entity.kinematicData.orientation);
-        
-        var targetFacing = new Vector2d(0, 0);
-        targetFacing.fromRads(entity.motionRequest.facing);
-        
-        var rotAngle = Math.acos(currentFacing.dotProduct(targetFacing));
-        if(Math.abs(rotAngle) > Vector2d.epsilon)
+        for(var i = 0; i < entityList.length; ++i)
         {
-            rotAngle = Math.min(rotAngle, 
-                entity.kinematicData.rotationVelocity * deltaRatio); 
-            entity.kinematicData.orientation += rotAngle;
-            entity.kinematicData.orientation %= 2 * Math.PI;
-        }
-        
-        //move towards target location
-        var directionVec = new Vector2d(entity.motionRequest.target);
-        directionVec.subtract(entity.kinematicData.position);
-        var distance = directionVec.length();
-        directionVec.normalize();
-        
-        directionVec.multiply(entity.kinematicData.maxAcceleration * deltaRatio);
-        if(directionVec.length() > distance)
-        {
+            var entity = entityList[i];
+            var k = entity.kinematicData;
+            //rotate to face desired facing
+            var currentFacing = new Vector2d(0, 0);
+            currentFacing.fromRads(entity.kinematicData.orientation);
+            currentFacing.normalize();
+            
+            var targetFacing = new Vector2d(entity.motionRequest.facing);
+            targetFacing.normalize();
+            //targetFacing.fromRads(entity.motionRequest.facing);
+
+            var rotAngle = Math.acos(currentFacing.dotProduct(targetFacing));
+            if(Math.abs(rotAngle) > Vector2d.epsilon)
+            {
+                rotAngle = Math.min(rotAngle, 
+                    entity.kinematicData.rotationVelocity * deltaRatio); 
+                entity.kinematicData.orientation += rotAngle;
+                entity.kinematicData.orientation %= 2 * Math.PI;
+            }
+
+            //move towards target location
+            var directionVec = new Vector2d(entity.motionRequest.target);
+            directionVec.subtractVector(entity.kinematicData.position);
+            var distance = directionVec.length();
             directionVec.normalize();
-            directionVec.multiply(distance);
+
+            directionVec.multiply(entity.kinematicData.maxAcceleration * deltaRatio);
+            //if(directionVec.length() > distance)
+            //{
+            //    directionVec.normalize();
+            //    directionVec.multiply(distance);
+            //}
+            k.velocity.addVector(directionVec);
+            if(k.velocity.length() > k.maxVelocity)
+            {
+                k.velocity.normalize();
+                k.velocity.multiply(k.maxVelocity);
+            }
+            if(k.velocity.length() > distance)
+            {
+                k.velocity.normalize();
+                k.velocity.multiply(distance);
+            }
+            var moveVec = new Vector2d(k.velocity);
+            moveVec.multiply(deltaRatio);
+            k.position.addVector(moveVec);
         }
-        entity.kinematicData.position.add(directionVec);
     }
 }

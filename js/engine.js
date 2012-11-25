@@ -50,6 +50,7 @@ function GameStateInGame()
     this.levelRenderer = new LevelRenderer();
     this.playerKinematicUpdater = new PlayerKinematicUpdater();
     this.inGameInputHandler = new InGameInputHandler();
+    this.aiKinematicUpdater = new AiKinematicUpdater();
 
     this.loadLevel = function(levelName)
     {
@@ -63,6 +64,8 @@ function GameStateInGame()
             engine.inputStack, engine.inputMap);        
         this.playerKinematicUpdater.execute(this.level.data.player, 
             ratio);
+        this.aiKinematicUpdater.execute(this.level.data.aiList, ratio);
+            
         this.level.data.camera.kinematicData.position = 
             new Vector2d(this.level.data.player.kinematicData.position);
     }

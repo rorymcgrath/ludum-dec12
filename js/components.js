@@ -20,7 +20,7 @@ function CplayerInput()
 function CmotionRequest()
 {
     this.target = new Vector2d(0, 0);
-    this.facing = 0;
+    this.facing = new Vector2d(0, 0);
 }
 
 function CcharacterRender(stillImage, walkImage)
@@ -36,6 +36,7 @@ function ClevelData()
     //map etc.
     this.entityList = [];
     this.characterList = [];
+    this.aiList = [];
     this.camera = new Entity();
     this.player = new Entity();
     this.tiles = [];

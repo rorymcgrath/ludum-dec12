@@ -41,26 +41,28 @@ function loadLevel(levelName)
     level.data.tileData = tileData;
     level.data.furnitureData = furnitureData;
     
-    var image = engine.content.getLevel(levelName);
-    var ghostCanvas = document.createElement("canvas");
-    ghostCanvas.width = image.width;
-    ghostCanvas.height = image.height;
-    var ctx = ghostCanvas.getContext("2d");
-    ctx.drawImage(image, 0, 0);
-    var ghostImage = ctx.getImageData(0,0,ghostCanvas.width,ghostCanvas.height);
+    //var image = engine.content.getLevel(levelName);
+    //var ghostCanvas = document.createElement("canvas");
+    //ghostCanvas.width = image.width;
+    //ghostCanvas.height = image.height;
+    //var ctx = ghostCanvas.getContext("2d");
+    //ctx.drawImage(image, 0, 0);
+    //var ghostImage = ctx.getImageData(0,0,ghostCanvas.width,ghostCanvas.height);
  
     //store coordinate in map space of current tile so we can
     //set entity starting positions as needed
     var x = 0, y = 0;
     
-    var imageData = ghostImage.data;
-    for (var i = 0; i < ghostImage.height; ++i)
+    var imageData = levelData[levelName + "Pixels"];
+    var height = levelData[levelName + "Height"];
+    var width = levelData[levelName + "Width"];
+    for (var i = 0; i < height; ++i)
     {
         var tileRow = [];
         var furnitureRow = [];
-        for (var j = 0; j < ghostImage.width * 4; j += 4)
+        for (var j = 0; j < width * 4; j += 4)
         {
-            var index = i * ghostImage.width * 4 + j;
+            var index = i * width * 4 + j;
             var tmp = 0;
             tmp = imageData[index] << 16;
             tmp = tmp|(imageData[index + 1] << 8);

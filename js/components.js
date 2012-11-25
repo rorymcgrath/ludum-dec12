@@ -38,7 +38,9 @@ function ClevelData()
     this.camera = new Entity();
     this.player = new Entity();
     this.tiles = [];
-    this.furniture = [];   
+    this.furniture = [];
+    this.tileData = {};
+    this.furnitureData = {};
 }
 
 function CmenuData()

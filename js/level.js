@@ -85,6 +85,7 @@ function loadLevel(levelName)
             x += 1;
         }
         y += 1;
+        x = 0;
         level.data.tiles.push(tileRow);
         level.data.furniture.push(furnitureRow);
     }

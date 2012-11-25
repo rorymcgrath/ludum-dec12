@@ -24,12 +24,12 @@ function TileData()
 function FurnitureData()
 {
     this.data = [];
-    this.data[3] = { name : "DOOR" }
-    this.data[4] = { name : "PLAYER_START" }
-    this.data[5] = { name : "PLAYER_END" }
-    this.data[6] = { name : "GUARD_POSITION" }
-    this.data[7] = { name : "GUARD_PATROL" }
-    this.data[8] = { name : "BOSS_POSITION" }
+    this.data[3] = {name : "DOOR"}
+    this.data[4] = {name : "PLAYER_START"}
+    this.data[5] = {name : "PLAYER_END"}
+    this.data[6] = {name : "GUARD_POSITION"}
+    this.data[7] = {name : "GUARD_PATROL"}
+    this.data[8] = {name : "BOSS_POSITION"}
 }
 
 function loadLevel(levelName)
@@ -43,17 +43,7 @@ function loadLevel(levelName)
     level.data = new ClevelData();
     level.data.tileData = tileData;
     level.data.furnitureData = furnitureData;
-    
-    //var image = engine.content.getLevel(levelName);
-    //var ghostCanvas = document.createElement("canvas");
-    //ghostCanvas.width = image.width;
-    //ghostCanvas.height = image.height;
-    //var ctx = ghostCanvas.getContext("2d");
-    //ctx.drawImage(image, 0, 0);
-    //var ghostImage = ctx.getImageData(0,0,ghostCanvas.width,ghostCanvas.height);
- 
-    //store coordinate in map space of current tile so we can
-    //set entity starting positions as needed
+
     var x = 0, y = 0;
     
     var imageData = levelData[levelName + "Pixels"];
@@ -79,6 +69,27 @@ function loadLevel(levelName)
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2)) 
                 }
+                else if(furnitureData.data[val].name === "GUARD_POSITION")
+                {
+                    var guard = entityFactory.makeNPC(400, 50, 3, 
+                        engine.content.getImage("guard"),
+                        engine.content.getImage("guard")); 
+                    guard.kinematicData.position = new Vector2d(
+                    x * tSize + (tSize / 2), 
+                    y * tSize + (tSize / 2))
+                    level.data.characterList.push(guard);
+                }
+                else if(furnitureData.data[val].name === "BOSS_POSITION")
+                {
+                    var boss = entityFactory.makeNPC(400, 50, 3, 
+                        engine.content.getImage("boss"),
+                        engine.content.getImage("boss")); 
+                    boss.kinematicData.position = new Vector2d(
+                    x * tSize + (tSize / 2), 
+                    y * tSize + (tSize / 2))
+                    level.data.characterList.push(boss);
+                }
+                
                 furnitureRow.push(val);
                 tileRow.push(2);
             }

@@ -25,7 +25,10 @@ var Consts =
         0xb97a57 : 3,   //Brown
         0x22b14c : 4,   //Green
         0xff0000 : 5,   //Red
-        0x49d5d7 : 6    //Cyan
+        0x49d5d7 : 6,   //Cyan
+        0X3babad : 7,   //Cyan_1
+        0xe4abad : 8    //pink
+        
     },
     dimensions :
     {

@@ -5,7 +5,7 @@ var entityFactory =
         var npc = new Entity();
         npc.kinematicData = new CkinematicData(maxAcc, maxVel, rotVel);
         npc.motionRequest = new CmotionRequest();
-        npc.CcharacterRender = new CcharacterRender(stillImage, walkImage);
+        npc.characterRender = new CcharacterRender(stillImage, walkImage);
         return npc;
     },
     
@@ -14,7 +14,7 @@ var entityFactory =
         var pc = new Entity();
         pc.kinematicData = new CkinematicData(maxAcc, maxVel, rotVel);
         pc.motionRequest = new CmotionRequest();
-        pc.CcharacterRender = new CcharacterRender(stillImage, walkImage);
+        pc.characterRender = new CcharacterRender(stillImage, walkImage);
         pc.playerInput = new CplayerInput();
         return pc;
     },

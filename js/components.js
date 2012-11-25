@@ -1,3 +1,17 @@
+var aiFlags =
+{
+    state : 
+    {
+        PATROL : 0,
+        CHASE : 1
+    },
+    type :
+    {
+        GUARD : 0,
+        BOSS : 1
+    }
+}
+
 function CkinematicData(maxAcc, maxVel, rotVel)
 {
     this.position = new Vector2d(0, 0);
@@ -21,6 +35,13 @@ function CmotionRequest()
 {
     this.target = new Vector2d(0, 0);
     this.facing = new Vector2d(0, 0);
+}
+
+function Cai(type)
+{
+    this.state = aiFlags.state.PATROL;
+    this.hasTarget = false;
+    this.type   
 }
 
 function CcharacterRender(stillImage, walkImage)

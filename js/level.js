@@ -73,7 +73,8 @@ function loadLevel(levelName)
                 {
                     var guard = entityFactory.makeNPC(400, 50, 3, 
                         engine.content.getImage("guard"),
-                        engine.content.getImage("guard")); 
+                        engine.content.getImage("guard"),
+                        aiFlags.type.GUARD); 
                     guard.kinematicData.position = new Vector2d(
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
@@ -88,7 +89,8 @@ function loadLevel(levelName)
                 {
                     var boss = entityFactory.makeNPC(400, 50, 3, 
                         engine.content.getImage("boss"),
-                        engine.content.getImage("boss")); 
+                        engine.content.getImage("boss"),
+                        aiFlags.type.BOSS); 
                     boss.kinematicData.position = new Vector2d(
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))

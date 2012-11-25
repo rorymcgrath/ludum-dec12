@@ -1,11 +1,12 @@
 var entityFactory = 
 {
-    makeNPC : function(maxAcc, maxVel, rotVel, stillImage, walkImage)
+    makeNPC : function(maxAcc, maxVel, rotVel, stillImage, walkImage, aiType)
     {
         var npc = new Entity();
         npc.kinematicData = new CkinematicData(maxAcc, maxVel, rotVel);
         npc.motionRequest = new CmotionRequest();
         npc.characterRender = new CcharacterRender(stillImage, walkImage);
+        npc.ai = new Cai(aiType);
         return npc;
     },
     

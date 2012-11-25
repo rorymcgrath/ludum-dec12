@@ -71,9 +71,9 @@ function AiKinematicUpdater()
             //rotate to face desired facing
             var currentFacing = new Vector2d(0, 0);
             currentFacing.fromRads(entity.kinematicData.orientation);
-            currentFacing.normalize();
             
             var targetFacing = new Vector2d(entity.motionRequest.facing);
+            targetFacing.subtractVector(k.position);
             targetFacing.normalize();
             //targetFacing.fromRads(entity.motionRequest.facing);
 
@@ -82,7 +82,15 @@ function AiKinematicUpdater()
             {
                 rotAngle = Math.min(rotAngle, 
                     entity.kinematicData.rotationVelocity * deltaRatio); 
-                entity.kinematicData.orientation += rotAngle;
+                //get right hand normal
+                var rhn = new Vector2d(currentFacing.y, -currentFacing.x);
+                var dp = rhn.dotProduct(targetFacing);
+                
+                if(dp > 0)
+                    entity.kinematicData.orientation += rotAngle;
+                else
+                    entity.kinematicData.orientation -= rotAngle;
+                
                 entity.kinematicData.orientation %= 2 * Math.PI;
             }
 

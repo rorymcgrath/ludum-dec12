@@ -78,8 +78,8 @@ function loadLevel(levelName)
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
                     
-                    guard.motionRequest.target = playerStartPosition;
-                    guard.motionRequest.facing = playerStartPosition;
+                    guard.motionRequest.target = new Vector2d(guard.kinematicData.position);
+                    guard.motionRequest.facing = new Vector2d(guard.kinematicData.position);
                         
                     level.data.characterList.push(guard);
                     level.data.aiList.push(guard);

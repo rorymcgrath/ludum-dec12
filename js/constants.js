@@ -14,13 +14,20 @@ var Consts =
         ENTER : 13,
         ESC : 27
     },
-    tile_colours:
+    tileColours :
     {
-        0xffffff:0,//White
-        0x000000:1,//Black
-        0xC3C3C3:3,//Gray
-        0xff0000:2,//Red
-        0x22b14c:5,//Green
-        0xb97a57:4,//Brown
+        tileTypeCount : 3,
+        
+        0xffffff : 0,   //White
+        0x000000 : 1,   //Black
+        0xff0000 : 2,   //Red
+        
+        0xC3C3C3 : 3,   //Gray
+        0xb97a57 : 4,   //Brown
+        0x22b14c : 5    //Green
+    },
+    dimensions :
+    {
+        tileSize : 16
     }
 }

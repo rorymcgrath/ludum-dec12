@@ -21,20 +21,12 @@ function CharacterRenderer()
             if(p.x > xLower && p.x < xUpper && p.y > yLower && p.y < yUpper)
             {
                 drawPos = new Vector2d(p);
-                drawPos.subtractVector(c.characterRender.imageOffset);
                 drawPos.subtractVector(camOffset);
-                context.drawImage(c.characterRender.stillAnim, drawPos.x, drawPos.y);
-                
-                drawPos.addVector(c.characterRender.imageOffset);
                 context.translate(drawPos.x, drawPos.y);
                 context.rotate(c.kinematicData.orientation);
-                context.beginPath();
-                context.moveTo(0, 0)
-                context.lineTo(20, 0);
-                context.lineWidth = 4;
-                context.strokeStyle = "red";
-                context.lineCap = "round";
-                context.stroke();
+                context.drawImage(c.characterRender.stillAnim, 
+                    -c.characterRender.imageOffset.x, 
+                    -c.characterRender.imageOffset.y);
                 context.setTransform(1, 0, 0, 1, 0, 0);
             }
         }

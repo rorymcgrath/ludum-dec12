@@ -96,7 +96,7 @@ function loadLevel(levelName)
     camera.kinematicData.position = new Vector2d(playerStartPosition);
     level.data.camera = camera;
     
-    var player = entityFactory.makePC(3, 4, 10, 
+    var player = entityFactory.makePC(8, 2, 4, 
         engine.content.getImage("playerWalk"), 
         engine.content.getImage("playerWalk"))
     player.kinematicData.position = playerStartPosition;

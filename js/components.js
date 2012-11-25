@@ -20,6 +20,7 @@ function CplayerInput()
 function CmotionRequest()
 {
     this.target = new Vector2d(0, 0);
+    this.facing = 0;
 }
 
 function CcharacterRender(stillImage, walkImage)

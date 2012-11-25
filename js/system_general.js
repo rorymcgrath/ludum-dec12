@@ -39,7 +39,7 @@ function MenuInputHandler()
         for(var i = 0; i < inputQueue.length; ++i)
         {
             var e = inputQueue[i];
-            if(e[0] === Consts.keys.SPACE)
+            if(e[0] === Consts.keys.ENTER)
             {
                 menu.continuePressed = true;
             }

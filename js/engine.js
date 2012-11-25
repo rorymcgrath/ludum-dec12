@@ -6,14 +6,18 @@ function GameStateMenu()
     
     this.init = function()
     {
-        var menuText = entityFactory.makeText("HitBoy", "40px Georgia", "white");
+        var menuText = entityFactory.makeText("HitBoy:", "50px Georgia", "white");
         menuText.kinematicData.position = new Vector2d(
             engine.canvas.width / 2, 150);
-        var playText = entityFactory.makeText("Press SPACE to begin!", 
-            "30px Georgia", "white");
+        var subText = entityFactory.makeText("Silent & Violent", "30px Georgia", "red");
+        subText.kinematicData.position = new Vector2d(
+            engine.canvas.width / 2, 190);
+        var playText = entityFactory.makeText("Press <ENTER> to begin!", 
+            "20px Georgia", "white");
         playText.kinematicData.position = new Vector2d(
             engine.canvas.width / 2, 300);
         this.menu.data.textList.push(menuText);
+        this.menu.data.textList.push(subText)
         this.menu.data.textList.push(playText);
     }
     
@@ -46,32 +50,9 @@ function GameStateInGame()
     this.playerKinematicUpdater = new PlayerKinematicUpdater();
     this.inGameInputHandler = new InGameInputHandler();
 
-    this.loadLevel = function()
+    this.loadLevel = function(levelName)
     {
-        var levelName = 'level01';
-        var testing = loadLevel(levelName);
-        this.level = new Entity();
-        this.level.data = new ClevelData();
-        
-        var camera = new Entity();
-        camera.kinematicData = new CkinematicData();
-        camera.kinematicData.position = new Vector2d(500, 500);
-        
-        var ball = new Entity();
-        ball.kinematicData = new CkinematicData(6, 3);
-        ball.kinematicData.position = new Vector2d(500, 600);
-        //ball.kinematicData.velocity = new Vector2d(2, 0);
-
-        ball.characterRender = new CcharacterRender(
-            engine.content.getImage("playerWalk"), 
-            engine.content.getImage("playerWalk"));
-        ball.playerInput = new CplayerInput();
-
-        this.level.data.player = ball;
-        this.level.data.camera = camera;
-        this.level.data.entityList.push(ball);
-        this.level.data.entityList.push(camera);
-        this.level.data.characterList.push(ball);
+        this.level = loadLevel(levelName);
     }
 
     this.update = function(canvas, context, delta)

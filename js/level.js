@@ -89,7 +89,7 @@ function loadLevel(levelName)
     //set up player, camera, enemies, etc
     var camera = new Entity();
     camera.kinematicData = new CkinematicData(2, 4, 0);
-    camera.kinematicData.position = new Vector2d(500, 500);
+    camera.kinematicData.position = new Vector2d(playerStartPosition);
     level.data.camera = camera;
     
     var player = entityFactory.makePC(3, 4, 10, 

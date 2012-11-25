@@ -8,10 +8,7 @@ function Content()
     {
         image["playerWalk"] = new Image();
         image["playerWalk"].src = "img/furniture/furniturePlayer.png";
-        
-        level["level01"] = new Image();
-        level["level01"].src = "data/level01.png";
-        
+
         image["guard"] = new Image();
         image["guard"].src = "img/furniture/furnitureGuard.png";
         

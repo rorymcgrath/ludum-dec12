@@ -102,3 +102,64 @@ function MenuTextRenderer()
         }
     }
 }
+
+function LevelRenderer()
+{
+    this.execute = function(canvas, context, level)
+    {
+        var tSize = Consts.dimensions.tileSize;
+        var tiles = level.data.tiles;
+
+        var camera = level.data.camera;
+        var xLower = (camera.kinematicData.position.x - 
+            (canvas.width / 2) - 20) / tSize;
+        var xUpper = (camera.kinematicData.position.x + 
+            (canvas.width / 2) + 20) / tSize;
+        var yLower = (camera.kinematicData.position.y - 
+            (canvas.height / 2) - 20) / tSize;
+        var yUpper = (camera.kinematicData.position.y + 
+            (canvas.height / 2) + 20) / tSize;
+        var p;
+        var camOffset = new Vector2d(
+            camera.kinematicData.position.x - 
+            canvas.width / 2, 
+            camera.kinematicData.position.y 
+            - canvas.height / 2);
+
+        xLower = Math.round(Math.max(xLower, 0));
+        yLower = Math.round(Math.max(yLower, 0));
+        xUpper = Math.round(Math.min(xUpper, tiles[0].length - 1));
+        yUpper = Math.round(Math.min(yUpper, tiles.length - 1));
+        for(var y = yLower; y <= yUpper; ++y)
+        {
+            for(var x = xLower; x <= xUpper; ++x)
+            {
+                /*
+                context.drawImage(level.data.tileData[tiles[y][x]].img, 
+                    x * tSize - camOffset.x,
+                    y * tSize - camOffset.y);
+                */
+            //temp rectangle draw
+                context.beginPath();
+                context.rect(x * tSize - camOffset.x, 
+                    y * tSize - camOffset.y, tSize, tSize);
+                switch(level.data.tileData.data[tiles[y][x]].name)
+                {
+                    case "NONE":
+                        context.fillStyle = "black";
+                        break;
+                    case "WALL":
+                        context.fillStyle = "white";
+                        break;
+                    case "GROUND":
+                        context.fillStyle = "gray";
+                        break;
+                }
+                context.fill();
+                context.lineWidth = 0.5;
+                context.strokeStyle = 'red';
+                context.stroke();
+            }
+        }
+    }
+}

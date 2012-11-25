@@ -47,6 +47,7 @@ function GameStateInGame()
     this.level.data = new ClevelData();
     
     this.characterRenderer = new CharacterRenderer();
+    this.levelRenderer = new LevelRenderer();
     this.playerKinematicUpdater = new PlayerKinematicUpdater();
     this.inGameInputHandler = new InGameInputHandler();
 
@@ -62,6 +63,8 @@ function GameStateInGame()
             engine.inputStack, engine.inputMap);        
         this.playerKinematicUpdater.execute(this.level.data.player, 
             ratio);
+        this.level.data.camera.kinematicData.position = 
+            new Vector2d(this.level.data.player.kinematicData.position);
     }
 
     this.draw = function(canvas, context)
@@ -71,6 +74,7 @@ function GameStateInGame()
         context.fillStyle = "black";
         context.fill();
         
+        this.levelRenderer.execute(canvas, context, this.level);
         this.characterRenderer.execute(this.level.data.camera, 
             canvas, context, this.level.data.characterList)
     }

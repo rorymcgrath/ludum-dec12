@@ -54,27 +54,28 @@ function loadLevel(levelName)
     var x = 0, y = 0;
     
     var imageData = ghostImage.data;
-    for (var i = 0; i < imageData.length; i=i+4)
+    for (var i = 0; i < ghostImage.height; ++i)
     {
         var tileRow = [];
         var furnitureRow = [];
-        for (var j = 0; j < ghostImage.width;j++)
+        for (var j = 0; j < ghostImage.width * 4; j += 4)
         {
+            var index = i * ghostImage.width * 4 + j;
             var tmp = 0;
-            tmp = imageData[i] << 16;
-            tmp = tmp|(imageData[i+1] << 8);
-            tmp = tmp|imageData[i+2];
+            tmp = imageData[index] << 16;
+            tmp = tmp|(imageData[index + 1] << 8);
+            tmp = tmp|imageData[index + 2];
             var val = Consts.tileColours[tmp];
-            if(val > Consts.tileColours.tileTypeCount)
+            if(val >= Consts.tileColours.tileTypeCount)
             {
                 if(furnitureData.data[val].name === "PLAYER_START")
                 {
                    playerStartPosition = new Vector2d(
-                    x * tSize - (tSize / 2), 
-                    y * tSize - (tSize / 2)) 
+                    x * tSize + (tSize / 2), 
+                    y * tSize + (tSize / 2)) 
                 }
                 furnitureRow.push(val);
-                tileRow.push(0);
+                tileRow.push(2);
             }
             else
             {

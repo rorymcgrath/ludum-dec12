@@ -26,10 +26,12 @@ var entityFactory =
         return menu;
     },
     
-    makeText : function(string, font)
+    makeText : function(string, font, color)
     {
         var text = new Entity();
-        text.text = new Ctext(string || "DEFAULT", font || "Arial 20");
+        text.text = new Ctext(string || "DEFAULT", 
+            font || "Arial 20",
+            color || "white");
         text.kinematicData = new CkinematicData()
         return text;
     }

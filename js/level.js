@@ -38,6 +38,8 @@ function loadLevel(levelName)
     
     var level = {};
     level.data = new ClevelData();
+    level.data.tileData = tileData;
+    level.data.furnitureData = furnitureData;
     
     var image = engine.content.getLevel(levelName);
     var ghostCanvas = document.createElement("canvas");

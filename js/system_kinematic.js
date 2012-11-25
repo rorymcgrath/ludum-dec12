@@ -75,10 +75,9 @@ function AiKinematicUpdater()
         if(Math.abs(rotAngle) > Vector2d.epsilon)
         {
             rotAngle = Math.min(rotAngle, 
-                entity.kinematicData.rotationVelocity); 
+                entity.kinematicData.rotationVelocity * deltaRatio); 
             entity.kinematicData.orientation += rotAngle;
             entity.kinematicData.orientation %= 2 * Math.PI;
-            
         }
         
         //move towards target location
@@ -87,12 +86,12 @@ function AiKinematicUpdater()
         var distance = directionVec.length();
         directionVec.normalize();
         
-        directionVec.multiply(entity.kinematicData.maxAcceleration);
-        directionVec.multiply(deltaRatio);
+        directionVec.multiply(entity.kinematicData.maxAcceleration * deltaRatio);
         if(directionVec.length() > distance)
         {
             directionVec.normalize();
             directionVec.multiply(distance);
         }
+        entity.kinematicData.position.add(directionVec);
     }
 }

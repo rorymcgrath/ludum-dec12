@@ -27,6 +27,9 @@ function FurnitureData()
     this.data[3] = { name : "DOOR" }
     this.data[4] = { name : "PLAYER_START" }
     this.data[5] = { name : "PLAYER_END" }
+    this.data[6] = { name : "GUARD_POSITION" }
+    this.data[7] = { name : "GUARD_PATROL" }
+    this.data[8] = { name : "BOSS_POSITION" }
 }
 
 function loadLevel(levelName)

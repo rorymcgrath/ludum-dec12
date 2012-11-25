@@ -41,7 +41,7 @@ function Cai(type)
 {
     this.state = aiFlags.state.PATROL;
     this.hasTarget = false;
-    this.type   
+    this.type = type;  
 }
 
 function CcharacterRender(stillImage, walkImage)

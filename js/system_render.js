@@ -129,17 +129,21 @@ function LevelRenderer()
         xLower = Math.round(Math.max(xLower, 0));
         yLower = Math.round(Math.max(yLower, 0));
         xUpper = Math.round(Math.min(xUpper, tiles[0].length - 1));
-        yUpper = Math.round(Math.min(yUpper, tiles.length - 1));
+        yUpper = Math.round(Math.min(yUpper, tiles.length - 1));    
         for(var y = yLower; y <= yUpper; ++y)
         {
             for(var x = xLower; x <= xUpper; ++x)
             {
-                /*
-                context.drawImage(level.data.tileData[tiles[y][x]].img, 
+                if(tiles[y][x] !== 0)
+                {
+                    context.drawImage(level.data.tileData.data[tiles[y][x]].img, 
                     x * tSize - camOffset.x,
                     y * tSize - camOffset.y);
-                */
+                }
+                
+
             //temp rectangle draw
+            /*
                 context.beginPath();
                 context.rect(x * tSize - camOffset.x, 
                     y * tSize - camOffset.y, tSize, tSize);
@@ -159,6 +163,7 @@ function LevelRenderer()
                 context.lineWidth = 0.5;
                 context.strokeStyle = 'red';
                 context.stroke();
+                */
             }
         }
     }

@@ -12,7 +12,6 @@ function Content()
         level["level01"] = new Image();
         level["level01"].src = "data/level01.png";
         
-        
         image["guard"] = new Image();
         image["guard"].src = "img/furniture/furnitureGuard.png";
         
@@ -22,14 +21,11 @@ function Content()
         image["door"] = new Image();
         image["door"].src = "img/furniture/furnitureDoor.png";
         
-        image["floor"] = new Image();
-        image["floor"].src = "img/tiles/tileFloor.png";
+        image["tileGround"] = new Image();
+        image["tileGround"].src = "img/tiles/tileFloor.png";
         
-        image["wall"] = new Image();
-        image["wall"].src = "img/tiles/tileWall.png";
-        
-    
-    
+        image["tileWall"] = new Image();
+        image["tileWall"].src = "img/tiles/tileWall.png";
     }
     
     this.getLevel = function(lvl)

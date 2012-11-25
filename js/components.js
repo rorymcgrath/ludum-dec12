@@ -45,6 +45,7 @@ function CmenuData()
 {
     this.buttonList = [];
     this.textList = [];
+    this.continuePressed = false;
 }
 
 function Ctext(string, font, color)

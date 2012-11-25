@@ -31,3 +31,18 @@ function InGameInputHandler()
         }
     }
 }
+
+function MenuInputHandler()
+{
+    this.execute = function(menu, inputQueue)
+    {
+        for(var i = 0; i < inputQueue.length; ++i)
+        {
+            var e = inputQueue[i];
+            if(e[0] === Consts.keys.SPACE)
+            {
+                menu.continuePressed = true;
+            }
+        }
+    }
+}

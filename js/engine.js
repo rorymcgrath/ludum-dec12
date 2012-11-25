@@ -2,6 +2,7 @@ function GameStateMenu()
 {
     this.menu = entityFactory.makeMenu();
     this.textRenderer = new MenuTextRenderer();
+    this.menuInputHandler = new MenuInputHandler();
     
     this.init = function()
     {
@@ -18,8 +19,12 @@ function GameStateMenu()
     
     this.update = function(canvas, context, delta)
     {
-        //engine.stateInGame.loadLevel();
-        //engine.setState(engine.stateInGame);
+        this.menuInputHandler.execute(this.menu, engine.inputQueue);
+        if(this.menu.continuePressed)
+        {
+            engine.stateInGame.loadLevel("level01");
+            engine.setState(engine.stateInGame);
+        }
     }
     this.draw = function(canvas, context)
     {

@@ -20,14 +20,14 @@ var Consts =
         
         0xffffff : 0,   //White
         0x000000 : 1,   //Black
-        0xff0000 : 2,   //Red
+        0xC3C3C3 : 2,   //Gray
         
-        0xC3C3C3 : 3,   //Gray
-        0xb97a57 : 4,   //Brown
-        0x22b14c : 5    //Green
+        0xb97a57 : 3,    //Brown
+        0x22b14c : 4,   //Green
+        0xff0000 : 5   //Red
     },
     dimensions :
     {
-        tileSize : 16
+        tileSize : 32
     }
 }

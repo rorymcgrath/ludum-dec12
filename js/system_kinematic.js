@@ -2,9 +2,10 @@ function PlayerKinematicUpdater()
 {
     this.execute = function(player, deltaRatio)
     {
-        var facingVec;
-        var k = player.kinematicData;
-        
+        var k, accVec, moveVec;
+        k = player.kinematicData;
+        accVec = new Vector2d().fromRads(k.orientation).normalize();
+         
         if(player.playerInput.right)
         {
             k.orientation += k.rotationVelocity * deltaRatio;
@@ -16,46 +17,36 @@ function PlayerKinematicUpdater()
             k.orientation %= 2 * Math.PI;
         }
         
-        facingVec = new Vector2d(0, 0);
-        facingVec.fromRads(k.orientation);
-        facingVec.normalize();
-        
         if(player.playerInput.up && !player.playerInput.down)
         {
-            facingVec.multiply(k.maxAcceleration * deltaRatio);
-            k.velocity.addVector(facingVec);
+            accVec.multiply(k.maxAcceleration * deltaRatio);
         }
         else if(player.playerInput.down && !player.playerInput.up)
         {
-            facingVec.multiply(-1);
-            facingVec.multiply(k.maxAcceleration * deltaRatio / 2);
-            k.velocity.addVector(facingVec);
+            accVec.multiply(-1).
+                multiply(k.maxAcceleration * deltaRatio / 2);
         }
         else if(k.velocity.length() < Vector2d.epsilon)
         {
-            facingVec.multiply(0);
+            accVec.multiply(0);
         }
         else
         {
-            var newDir = k.velocity.clone();
-            newDir.multiply(-1);
-            newDir.normalize();
-            newDir.multiply(k.maxAcceleration * deltaRatio);
-            
-            if(newDir.length() > k.velocity.length())
+            accVec = k.velocity.clone().multiply(-1).normalize().
+                multiply(k.maxAcceleration * deltaRatio);
+            if(accVec.length() > k.velocity.length())
             {
-                newDir.normalize();
-                newDir.multiply(k.velocity.length());
+                accVec.normalize().multiply(k.velocity.length());
             }
-            k.velocity.addVector(newDir);
         }
+        
+        k.velocity.addVector(accVec);
         if(k.velocity.length() > k.maxVelocity)
         {
-            k.velocity.normalize();
-            k.velocity.multiply(k.maxVelocity);
+            k.velocity.normalize().multiply(k.maxVelocity);
         }
-        var moveVec = k.velocity.clone();
-        moveVec.multiply(deltaRatio);
+        
+        moveVec = k.velocity.clone().multiply(deltaRatio);
         k.position.addVector(moveVec);
     }
 }

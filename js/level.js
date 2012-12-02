@@ -6,19 +6,19 @@ function TileData()
         name : "NONE",
         passable : false,
         img : engine.content.getImage("placeHolder")
-    }
+    };
     this.data[1] = 
     {
         name : "WALL",
         passable : false,
         img : engine.content.getImage("tileWall")
-    }
+    };
     this.data[2] = 
     {
         name : "GROUND",
         passable : true,
         img : engine.content.getImage("tileGround")
-    }
+    };
 }
 
 function FurnitureData()
@@ -71,10 +71,8 @@ function loadLevel(levelName)
                 }
                 else if(furnitureData.data[val].name === "GUARD_POSITION")
                 {
-                    var guard = entityFactory.makeNPC(400, 50, 3, 
-                        engine.content.getImage("guard"),
-                        engine.content.getImage("guard"),
-                        16); 
+                    var guard = entityFactory.makeNPC(
+                        entityFactory.BluePrint.GUARD);
                     guard.kinematicData.position = new Vector2d(
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
@@ -87,10 +85,8 @@ function loadLevel(levelName)
                 }
                 else if(furnitureData.data[val].name === "BOSS_POSITION")
                 {
-                    var boss = entityFactory.makeNPC(400, 50, 3, 
-                        engine.content.getImage("boss"),
-                        engine.content.getImage("boss"), 
-                        16); 
+                    var boss = entityFactory.makeNPC(
+                        entityFactory.BluePrint.BOSS);
                     boss.kinematicData.position = new Vector2d(
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
@@ -122,10 +118,8 @@ function loadLevel(levelName)
     camera.kinematicData.position = playerStartPosition.clone();
     level.data.camera = camera;
     
-    var player = entityFactory.makePC(500, 100, 3, 
-        engine.content.getImage("playerWalk"), 
-        engine.content.getImage("playerWalk"), 
-        16);
+    var player = entityFactory.makePC(
+        entityFactory.BluePrint.PC);
     player.kinematicData.position = playerStartPosition;
     level.data.player = player;
     
@@ -135,4 +129,3 @@ function loadLevel(levelName)
     level.data.characterList.push(player);
     return level;
 }
-

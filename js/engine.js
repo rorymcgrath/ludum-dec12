@@ -51,6 +51,7 @@ function GameStateInGame()
     this.playerKinematicUpdater = new PlayerKinematicUpdater();
     this.inGameInputHandler = new InGameInputHandler();
     this.aiKinematicUpdater = new AiKinematicUpdater();
+    this.metaDataRenderer = new MetaDataRenderer();
 
     this.loadLevel = function(levelName)
     {
@@ -79,7 +80,9 @@ function GameStateInGame()
         
         this.levelRenderer.execute(canvas, context, this.level);
         this.characterRenderer.execute(this.level.data.camera, 
-            canvas, context, this.level.data.characterList)
+            canvas, context, this.level.data.characterList);
+        this.metaDataRenderer.execute(this.level.data.camera, 
+            canvas, context, this.level.data.characterList);
     }
 }
 

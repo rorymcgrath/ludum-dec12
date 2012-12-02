@@ -81,9 +81,9 @@ function Line(p1, p2)
     this.p2 = p2 || new Vector2d();
 }
 
-function Circle(origin, radius)
+function Circle(position, radius)
 {
-    this.origin = origin || new Vector2d();
+    this.position = position || new Vector2d();
     this.radius = radius || 0;
 }
 

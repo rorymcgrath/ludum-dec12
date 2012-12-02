@@ -1,22 +1,61 @@
-var entityFactory = 
+var entityFactory =
 {
-    makeNPC : function(maxAcc, maxVel, rotVel, stillImage, walkImage, radius)
+    BluePrint : 
+    {
+        PC : 
+        {
+            maxAcc : 500, 
+            maxVel : 100, 
+            rotVel : 3, 
+            stillImage : "playerWalk",
+            walkImage : "playerWalk",
+            radius : 12
+        },
+        
+        GUARD : 
+        {
+            maxAcc : 400, 
+            maxVel : 50, 
+            rotVel : 3, 
+            stillImage : "guard",
+            walkImage : "guard",
+            radius : 12
+        },
+        
+        BOSS : 
+        {
+            maxAcc : 400, 
+            maxVel : 50, 
+            rotVel : 3, 
+            stillImage : "boss",
+            walkImage : "boss",
+            radius : 12
+        }
+    },
+    
+    makeNPC : function(bluePrint)
     {
         var npc = new Entity();
-        npc.kinematicData = new CkinematicData(maxAcc, maxVel, rotVel);
+        npc.kinematicData = new CkinematicData(bluePrint.maxAcc, 
+            bluePrint.maxVel, bluePrint.rotVel);
         npc.motionRequest = new CmotionRequest();
-        npc.characterRender = new CcharacterRender(stillImage, walkImage);
-        npc.collisionCircle = new CcollisionCircle(radius);
+        npc.characterRender = new CcharacterRender(
+            engine.content.getImage(bluePrint.stillImage), 
+            engine.content.getImage(bluePrint.walkImage));
+        npc.collision = new CcollisionCircle(bluePrint.radius);
         return npc;
     },
-    makePC : function(maxAcc, maxVel, rotVel, stillImage, walkImage, radius)
+    makePC : function(bluePrint)
     {
         var pc = new Entity();
-        pc.kinematicData = new CkinematicData(maxAcc, maxVel, rotVel);
+        pc.kinematicData = new CkinematicData(bluePrint.maxAcc, 
+            bluePrint.maxVel, bluePrint.rotVel);
         pc.motionRequest = new CmotionRequest();
-        pc.characterRender = new CcharacterRender(stillImage, walkImage);
+        pc.characterRender = new CcharacterRender(
+            engine.content.getImage(bluePrint.stillImage), 
+            engine.content.getImage(bluePrint.walkImage));
         pc.playerInput = new CplayerInput();
-        pc.collisionCircle = new CcollisionCircle(radius);
+        pc.collision = new CcollisionCircle(bluePrint.radius);
         return pc;
     },
     makeMenu : function()
@@ -34,4 +73,5 @@ var entityFactory =
         text.kinematicData = new CkinematicData()
         return text;
     }
+    
 }

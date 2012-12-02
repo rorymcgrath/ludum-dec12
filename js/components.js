@@ -31,6 +31,11 @@ function CcharacterRender(stillImage, walkImage)
         new Vector2d(this.stillAnim.width / 2, this.stillAnim.height / 2);
 }
 
+function CcollisionCircle(radius)
+{
+    this.circle = new Circle(new Vector2d(), radius);
+}
+
 function ClevelData()
 {
     //map etc.

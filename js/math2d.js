@@ -1,3 +1,8 @@
+var MathConsts = 
+{
+    epsilon : 10e-7
+}
+
 function Vector2d(x, y)
 {
     this.x = x || 0;
@@ -67,5 +72,26 @@ Vector2d.prototype =
     equals : function(vector)
     {
         return Math.abs(this.x - vector.x < Vector2d.epsilon) && Math.abs(this.y - vector.y < Vector2d.epsilon);
+    }
+}
+
+function Line(p1, p2)
+{
+    this.p1 = p1 || new Vector2d();
+    this.p2 = p2 || new Vector2d();
+}
+
+function Circle(origin, radius)
+{
+    this.origin = origin || new Vector2d();
+    this.radius = radius || 0;
+}
+
+Circle.prototype = 
+{
+    isIntersectingCircle : function(circle)
+    {
+        var length = this.origin.clone().subtractVector(circle.origin).length() 
+        return length <= this.radius + circle.radius;
     }
 }

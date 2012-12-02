@@ -31,7 +31,10 @@ function MetaDataRenderer()
                 
                 context.beginPath();
                 context.arc(0, 0, c.collision.volume.radius, 0, 2 * Math.PI, false);
-                context.fillStyle = "rgba(0, 0, 255, 0.3)";
+                if(c.collision.isColliding)
+                    context.fillStyle = "rgba(255, 0, 0, 0.3)";
+                else
+                    context.fillStyle = "rgba(0, 0, 255, 0.3)";
                 context.fill();
                 context.lineWidth = 1;
                 context.strokeStyle = "black";

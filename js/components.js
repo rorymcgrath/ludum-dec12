@@ -34,6 +34,7 @@ function CcharacterRender(stillImage, walkImage)
 function CcollisionCircle(radius)
 {
     this.volume = new Circle(new Vector2d(), radius);
+    this.isColliding = false;
 }
 
 function CmenuData()

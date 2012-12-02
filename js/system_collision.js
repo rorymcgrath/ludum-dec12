@@ -16,10 +16,13 @@ function PlayerCollision()
             level.tiles.length));
         yLower = Math.floor(Math.max((bcPos.y - bc.radius) / tSize, 0));
         
+        player.collision.isColliding = false;
         for(var r = yLower; r <= yUpper; ++r)
         {
             for(var c = xLower; c <= xUpper; ++c)
             {
+                if(!level.tileData.data[level.tiles[r][c]].passable)
+                    player.collision.isColliding = true;
                 //console.log(r + " " + c);
             }
         }

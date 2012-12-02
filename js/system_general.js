@@ -1,7 +1,8 @@
 function InGameInputHandler()
 {
-    this.execute = function(player, inputQueue, inputMap)
+    this.execute = function(level, inputQueue, inputMap)
     {
+        var player = level.getEntity(World.TagNames.PLAYER);
         for(var i = 0; i < inputQueue.length; ++i)
         {
             var e = inputQueue[i];

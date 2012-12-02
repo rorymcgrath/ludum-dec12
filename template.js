@@ -2,6 +2,8 @@
 
 //#include js/math2d.js
 
+//#include js/world.js
+
 //#include js/content.js
 
 //#include js/level.js

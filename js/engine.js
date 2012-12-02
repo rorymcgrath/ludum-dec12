@@ -43,8 +43,7 @@ function GameStateMenu()
 
 function GameStateInGame()
 {
-    this.level = new Entity();
-    this.level.data = new ClevelData();
+    this.level = new World();
     
     this.characterRenderer = new CharacterRenderer();
     this.levelRenderer = new LevelRenderer();
@@ -61,14 +60,14 @@ function GameStateInGame()
     this.update = function(canvas, context, delta)
     {
         var ratio = delta / 1000.0;
-        this.inGameInputHandler.execute(this.level.data.player, 
+        this.inGameInputHandler.execute(this.level, 
             engine.inputStack, engine.inputMap);        
-        this.playerKinematicUpdater.execute(this.level.data.player, 
-            ratio);
-        this.aiKinematicUpdater.execute(this.level.data.aiList, ratio);
-            
-        this.level.data.camera.kinematicData.position = 
-            this.level.data.player.kinematicData.position.clone();
+        this.playerKinematicUpdater.execute(this.level, ratio);
+        this.aiKinematicUpdater.execute(this.level, ratio);
+        
+        this.level.getEntity(World.TagNames.CAMERA).kinematicData.position = 
+            this.level.getEntity(World.TagNames.PLAYER)
+                .kinematicData.position.clone();
     }
 
     this.draw = function(canvas, context)
@@ -79,10 +78,8 @@ function GameStateInGame()
         context.fill();
         
         this.levelRenderer.execute(canvas, context, this.level);
-        this.characterRenderer.execute(this.level.data.camera, 
-            canvas, context, this.level.data.characterList);
-        this.metaDataRenderer.execute(this.level.data.camera, 
-            canvas, context, this.level.data.characterList);
+        this.characterRenderer.execute(canvas, context, this.level);
+        this.metaDataRenderer.execute(canvas, context, this.level);
     }
 }
 

@@ -1,12 +1,14 @@
 function MetaDataRenderer()
 {
-    this.execute = function(camera, canvas, context, characterList)
+    this.execute = function(canvas, context, level)
     {
+        var camera = level.getEntity(World.TagNames.CAMERA);
+        
         var xLower = camera.kinematicData.position.x - (canvas.width / 2) - 20;
         var xUpper = camera.kinematicData.position.x + (canvas.width / 2) + 20;
         var yLower = camera.kinematicData.position.y - (canvas.height / 2) - 20;
         var yUpper = camera.kinematicData.position.y + (canvas.height / 2) + 20;
-        var p;
+        var p, c;
         var drawPos;
         var camOffset = new Vector2d(
             camera.kinematicData.position.x - 
@@ -15,9 +17,10 @@ function MetaDataRenderer()
             - canvas.height / 2);
         
         //draw bounding circles
-        for(var c in characterList)
+        var cList = level.getGroup(World.GroupNames.CHARACTERS);
+        for(var i = 0; i < cList.length; ++i)
         {
-            c = characterList[c];
+            c = cList[i];
             p = c.collision.volume.position;
             drawPos = p.clone().addVector(c.kinematicData.position);
             if(drawPos.x > xLower && drawPos.x < xUpper && 
@@ -42,13 +45,15 @@ function MetaDataRenderer()
 
 function CharacterRenderer()
 {
-    this.execute = function(camera, canvas, context, characterList)
+    this.execute = function(canvas, context, level)
     {
+        var camera = level.getEntity(World.TagNames.CAMERA);
+        
         var xLower = camera.kinematicData.position.x - (canvas.width / 2) - 20;
         var xUpper = camera.kinematicData.position.x + (canvas.width / 2) + 20;
         var yLower = camera.kinematicData.position.y - (canvas.height / 2) - 20;
         var yUpper = camera.kinematicData.position.y + (canvas.height / 2) + 20;
-        var p;
+        var p, c;
         var drawPos;
         var camOffset = new Vector2d(
             camera.kinematicData.position.x - 
@@ -56,9 +61,10 @@ function CharacterRenderer()
             camera.kinematicData.position.y 
             - canvas.height / 2);
         
-        for(var c in characterList)
+        var cList = level.getGroup(World.GroupNames.CHARACTERS);
+        for(var i = 0; i < cList.length; ++i)
         {
-            c = characterList[c];
+            c = cList[i];
             p = c.kinematicData.position;
             if(p.x > xLower && p.x < xUpper && p.y > yLower && p.y < yUpper)
             {
@@ -142,9 +148,9 @@ function LevelRenderer()
     this.execute = function(canvas, context, level)
     {
         var tSize = Consts.dimensions.tileSize;
-        var tiles = level.data.tiles;
+        var tiles = level.tiles;
 
-        var camera = level.data.camera;
+        var camera = level.getEntity(World.TagNames.CAMERA);
         var xLower = (camera.kinematicData.position.x - 
             (canvas.width / 2) - 20) / tSize;
         var xUpper = (camera.kinematicData.position.x + 
@@ -153,7 +159,7 @@ function LevelRenderer()
             (canvas.height / 2) - 20) / tSize;
         var yUpper = (camera.kinematicData.position.y + 
             (canvas.height / 2) + 20) / tSize;
-        var p;
+
         var camOffset = new Vector2d(
             camera.kinematicData.position.x - 
             canvas.width / 2, 
@@ -170,7 +176,7 @@ function LevelRenderer()
             {
                 if(tiles[y][x] !== 0)
                 {
-                    context.drawImage(level.data.tileData.data[tiles[y][x]].img, 
+                    context.drawImage(level.tileData.data[tiles[y][x]].img, 
                     x * tSize - camOffset.x,
                     y * tSize - camOffset.y);
                 }

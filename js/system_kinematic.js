@@ -1,8 +1,9 @@
 function PlayerKinematicUpdater()
 {
-    this.execute = function(player, deltaRatio)
+    this.execute = function(level, deltaRatio)
     {
-        var k, accVec, moveVec;
+        var k, accVec, moveVec, player;
+        player = level.getEntity(World.TagNames.PLAYER);
         k = player.kinematicData;
         accVec = new Vector2d().fromRads(k.orientation).normalize();
          
@@ -53,11 +54,11 @@ function PlayerKinematicUpdater()
 
 function AiKinematicUpdater()
 {
-    this.execute = function(entityList, deltaRatio)
+    this.execute = function(level, deltaRatio)
     {
         var entity, k, currentFacing, targetFacing, rotAngle,
             dp, directionVec, distance, moveVec;
-            
+        var entityList = level.getGroup(World.GroupNames.ENEMIES);
         for(var i = 0; i < entityList.length; ++i)
         {
             entity = entityList[i];

@@ -36,20 +36,6 @@ function CcollisionCircle(radius)
     this.volume = new Circle(new Vector2d(), radius);
 }
 
-function ClevelData()
-{
-    //map etc.
-    this.entityList = [];
-    this.characterList = [];
-    this.aiList = [];
-    this.camera = new Entity();
-    this.player = new Entity();
-    this.tiles = [];
-    this.furniture = [];
-    this.tileData = {};
-    this.furnitureData = {};
-}
-
 function CmenuData()
 {
     this.buttonList = [];

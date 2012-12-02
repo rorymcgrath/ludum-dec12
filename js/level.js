@@ -39,11 +39,13 @@ function loadLevel(levelName)
     var playerStartPosition = new Vector2d(0, 0);
     var tSize = Consts.dimensions.tileSize;
     
-    var level = {};
-    level.data = new ClevelData();
-    level.data.tileData = tileData;
-    level.data.furnitureData = furnitureData;
-
+    var level = new World();
+    level.tileData = tileData;
+    level.furnitureData = furnitureData;
+    level.createGroup(World.GroupNames.ENEMIES);
+    level.createGroup(World.GroupNames.BULLETS);
+    level.createGroup(World.GroupNames.CHARACTERS);
+    
     var x = 0, y = 0;
     
     var imageData = levelData[levelName + "Pixels"];
@@ -58,8 +60,8 @@ function loadLevel(levelName)
             var index = i * width * 4 + j;
             var tmp = 0;
             tmp = imageData[index] << 16;
-            tmp = tmp|(imageData[index + 1] << 8);
-            tmp = tmp|imageData[index + 2];
+            tmp = tmp | (imageData[index + 1] << 8);
+            tmp = tmp | imageData[index + 2];
             var val = Consts.tileColours[tmp];
             if(val >= Consts.tileColours.tileTypeCount)
             {
@@ -80,8 +82,8 @@ function loadLevel(levelName)
                     guard.motionRequest.target = guard.kinematicData.position.clone();
                     guard.motionRequest.facing = guard.kinematicData.position.clone();
                         
-                    level.data.characterList.push(guard);
-                    level.data.aiList.push(guard);
+                    level.addEntity(World.GroupNames.ENEMIES, guard);
+                    level.addEntity(World.GroupNames.CHARACTERS, guard);
                 }
                 else if(furnitureData.data[val].name === "BOSS_POSITION")
                 {
@@ -90,8 +92,9 @@ function loadLevel(levelName)
                     boss.kinematicData.position = new Vector2d(
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
-                    level.data.characterList.push(boss);
-                    level.data.aiList.push(boss);
+                    
+                    level.addEntity(World.GroupNames.ENEMIES, boss);
+                    level.addEntity(World.GroupNames.CHARACTERS, boss);
                 }
                 
                 furnitureRow.push(val);
@@ -108,24 +111,23 @@ function loadLevel(levelName)
         }
         y += 1;
         x = 0;
-        level.data.tiles.push(tileRow);
-        level.data.furniture.push(furnitureRow);
+        level.tiles.push(tileRow);
+        level.furniture.push(furnitureRow);
     }
     
     //set up player, camera, enemies, etc
     var camera = new Entity();
     camera.kinematicData = new CkinematicData(2, 4, 0);
     camera.kinematicData.position = playerStartPosition.clone();
-    level.data.camera = camera;
+    
+    level.tagEntity(World.TagNames.CAMERA, camera);
+    
     
     var player = entityFactory.makePC(
         entityFactory.BluePrint.PC);
     player.kinematicData.position = playerStartPosition;
-    level.data.player = player;
     
-    level.data.entityList.push(camera);
-    level.data.entityList.push(player);
-    
-    level.data.characterList.push(player);
+    level.tagEntity(World.TagNames.PLAYER, player);
+    level.addEntity(World.GroupNames.CHARACTERS, player);
     return level;
 }

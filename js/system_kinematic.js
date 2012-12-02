@@ -55,61 +55,53 @@ function AiKinematicUpdater()
 {
     this.execute = function(entityList, deltaRatio)
     {
+        var entity, k, currentFacing, targetFacing, rotAngle,
+            dp, directionVec, distance, moveVec;
+            
         for(var i = 0; i < entityList.length; ++i)
         {
-            var entity = entityList[i];
-            var k = entity.kinematicData;
-            //rotate to face desired facing
-            var currentFacing = new Vector2d(0, 0);
-            currentFacing.fromRads(entity.kinematicData.orientation);
+            entity = entityList[i];
+            k = entity.kinematicData;
             
-            var targetFacing = entity.motionRequest.facing.clone();
-            targetFacing.subtractVector(k.position);
-            targetFacing.normalize();
-            //targetFacing.fromRads(entity.motionRequest.facing);
+            //rotate to face desired facing
+            currentFacing = new Vector2d().fromRads(k.orientation);
+            
+            targetFacing = entity.motionRequest.facing.clone()
+                .subtractVector(k.position).normalize();
 
-            var rotAngle = Math.acos(currentFacing.dotProduct(targetFacing));
+            rotAngle = Math.acos(currentFacing.dotProduct(targetFacing));
             if(Math.abs(rotAngle) > Vector2d.epsilon)
             {
-                rotAngle = Math.min(rotAngle, 
-                    entity.kinematicData.rotationVelocity * deltaRatio); 
-                //get right hand normal
-                var rhn = new Vector2d(currentFacing.y, -currentFacing.x);
-                var dp = rhn.dotProduct(targetFacing);
+                rotAngle = Math.min(rotAngle, k.rotationVelocity * deltaRatio); 
+                //get dot product of right hand normal
+                dp = new Vector2d(currentFacing.y, -currentFacing.x)
+                    .dotProduct(targetFacing);
                 
-                if(dp > 0)
-                    entity.kinematicData.orientation += rotAngle;
-                else
-                    entity.kinematicData.orientation -= rotAngle;
-                
-                entity.kinematicData.orientation %= 2 * Math.PI;
+                if(dp > 0) 
+                    k.orientation += rotAngle;
+                else 
+                    k.orientation -= rotAngle;
+
+                k.orientation %= 2 * Math.PI;
             }
 
             //move towards target location
-            var directionVec = entity.motionRequest.target.clone();
-            directionVec.subtractVector(entity.kinematicData.position);
-            var distance = directionVec.length();
-            directionVec.normalize();
+            directionVec = entity.motionRequest.target.clone()
+                .subtractVector(k.position);
+            distance = directionVec.length();
+            directionVec.normalize()
+                .multiply(k.maxAcceleration * deltaRatio);
 
-            directionVec.multiply(entity.kinematicData.maxAcceleration * deltaRatio);
-            //if(directionVec.length() > distance)
-            //{
-            //    directionVec.normalize();
-            //    directionVec.multiply(distance);
-            //}
             k.velocity.addVector(directionVec);
             if(k.velocity.length() > k.maxVelocity)
             {
-                k.velocity.normalize();
-                k.velocity.multiply(k.maxVelocity);
+                k.velocity.normalize().multiply(k.maxVelocity);
             }
             if(k.velocity.length() > distance)
             {
-                k.velocity.normalize();
-                k.velocity.multiply(distance);
+                k.velocity.normalize().multiply(distance);
             }
-            var moveVec = k.velocity.clone();
-            moveVec.multiply(deltaRatio);
+            moveVec = k.velocity.clone().multiply(deltaRatio);
             k.position.addVector(moveVec);
         }
     }

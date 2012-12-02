@@ -33,7 +33,7 @@ function CcharacterRender(stillImage, walkImage)
 
 function CcollisionCircle(radius)
 {
-    this.circle = new Circle(new Vector2d(), radius);
+    this.volume = new Circle(new Vector2d(), radius);
 }
 
 function ClevelData()

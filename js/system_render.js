@@ -1,3 +1,45 @@
+function MetaDataRenderer()
+{
+    this.execute = function(camera, canvas, context, characterList)
+    {
+        var xLower = camera.kinematicData.position.x - (canvas.width / 2) - 20;
+        var xUpper = camera.kinematicData.position.x + (canvas.width / 2) + 20;
+        var yLower = camera.kinematicData.position.y - (canvas.height / 2) - 20;
+        var yUpper = camera.kinematicData.position.y + (canvas.height / 2) + 20;
+        var p;
+        var drawPos;
+        var camOffset = new Vector2d(
+            camera.kinematicData.position.x - 
+            canvas.width / 2, 
+            camera.kinematicData.position.y 
+            - canvas.height / 2);
+        
+        //draw bounding circles
+        for(var c in characterList)
+        {
+            c = characterList[c];
+            p = c.collision.volume.position;
+            drawPos = p.clone().addVector(c.kinematicData.position);
+            if(drawPos.x > xLower && drawPos.x < xUpper && 
+                drawPos.y > yLower && drawPos.y < yUpper)
+            {
+                drawPos.subtractVector(camOffset);
+                context.translate(drawPos.x, drawPos.y);
+                
+                context.beginPath();
+                context.arc(0, 0, c.collision.volume.radius, 0, 2 * Math.PI, false);
+                context.fillStyle = "rgba(0, 0, 255, 0.3)";
+                context.fill();
+                context.lineWidth = 1;
+                context.strokeStyle = "black";
+                context.stroke();
+
+                context.setTransform(1, 0, 0, 1, 0, 0);
+            }
+        }
+    }
+}
+
 function CharacterRenderer()
 {
     this.execute = function(camera, canvas, context, characterList)
@@ -132,30 +174,6 @@ function LevelRenderer()
                     x * tSize - camOffset.x,
                     y * tSize - camOffset.y);
                 }
-                
-
-            //temp rectangle draw
-            /*
-                context.beginPath();
-                context.rect(x * tSize - camOffset.x, 
-                    y * tSize - camOffset.y, tSize, tSize);
-                switch(level.data.tileData.data[tiles[y][x]].name)
-                {
-                    case "NONE":
-                        context.fillStyle = "black";
-                        break;
-                    case "WALL":
-                        context.fillStyle = "white";
-                        break;
-                    case "GROUND":
-                        context.fillStyle = "gray";
-                        break;
-                }
-                context.fill();
-                context.lineWidth = 0.5;
-                context.strokeStyle = 'red';
-                context.stroke();
-                */
             }
         }
     }

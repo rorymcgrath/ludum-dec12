@@ -16,6 +16,8 @@
 
 //#include js/system_kinematic.js
 
+//#include js/system_collision.js
+
 //#include js/entity.js
 
 //#include js/components.js

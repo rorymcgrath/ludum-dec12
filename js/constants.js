@@ -17,6 +17,7 @@ var Consts =
     tileColours :
     {
         tileTypeCount : 3,
+        TILE_TYPE_COUNT : 3,
         
         0xffffff : 0,   //White
         0x000000 : 1,   //Black
@@ -32,6 +33,7 @@ var Consts =
     },
     dimensions :
     {
-        tileSize : 32
+        tileSize : 32,
+        TILE_SIZE : 32
     }
 }

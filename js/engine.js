@@ -51,6 +51,7 @@ function GameStateInGame()
     this.inGameInputHandler = new InGameInputHandler();
     this.aiKinematicUpdater = new AiKinematicUpdater();
     this.metaDataRenderer = new MetaDataRenderer();
+    this.playerCollision = new PlayerCollision();
 
     this.loadLevel = function(levelName)
     {
@@ -64,6 +65,7 @@ function GameStateInGame()
             engine.inputStack, engine.inputMap);        
         this.playerKinematicUpdater.execute(this.level, ratio);
         this.aiKinematicUpdater.execute(this.level, ratio);
+        this.playerCollision.execute(this.level);
         
         this.level.getEntity(World.TagNames.CAMERA).kinematicData.position = 
             this.level.getEntity(World.TagNames.PLAYER)

@@ -78,8 +78,8 @@ function loadLevel(levelName)
                     x * tSize + (tSize / 2), 
                     y * tSize + (tSize / 2))
                     
-                    guard.motionRequest.target = new Vector2d(guard.kinematicData.position);
-                    guard.motionRequest.facing = new Vector2d(guard.kinematicData.position);
+                    guard.motionRequest.target = guard.kinematicData.position.clone();
+                    guard.motionRequest.facing = guard.kinematicData.position.clone();
                         
                     level.data.characterList.push(guard);
                     level.data.aiList.push(guard);
@@ -117,7 +117,7 @@ function loadLevel(levelName)
     //set up player, camera, enemies, etc
     var camera = new Entity();
     camera.kinematicData = new CkinematicData(2, 4, 0);
-    camera.kinematicData.position = new Vector2d(playerStartPosition);
+    camera.kinematicData.position = playerStartPosition.clone();
     level.data.camera = camera;
     
     var player = entityFactory.makePC(500, 100, 3, 

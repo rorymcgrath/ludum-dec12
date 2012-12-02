@@ -67,7 +67,7 @@ function GameStateInGame()
         this.aiKinematicUpdater.execute(this.level.data.aiList, ratio);
             
         this.level.data.camera.kinematicData.position = 
-            new Vector2d(this.level.data.player.kinematicData.position);
+            this.level.data.player.kinematicData.position.clone();
     }
 
     this.draw = function(canvas, context)

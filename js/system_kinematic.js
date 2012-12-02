@@ -37,7 +37,7 @@ function PlayerKinematicUpdater()
         }
         else
         {
-            var newDir = new Vector2d(k.velocity);
+            var newDir = k.velocity.clone();
             newDir.multiply(-1);
             newDir.normalize();
             newDir.multiply(k.maxAcceleration * deltaRatio);
@@ -54,7 +54,7 @@ function PlayerKinematicUpdater()
             k.velocity.normalize();
             k.velocity.multiply(k.maxVelocity);
         }
-        var moveVec = new Vector2d(k.velocity);
+        var moveVec = k.velocity.clone();
         moveVec.multiply(deltaRatio);
         k.position.addVector(moveVec);
     }
@@ -72,7 +72,7 @@ function AiKinematicUpdater()
             var currentFacing = new Vector2d(0, 0);
             currentFacing.fromRads(entity.kinematicData.orientation);
             
-            var targetFacing = new Vector2d(entity.motionRequest.facing);
+            var targetFacing = entity.motionRequest.facing.clone();
             targetFacing.subtractVector(k.position);
             targetFacing.normalize();
             //targetFacing.fromRads(entity.motionRequest.facing);
@@ -95,7 +95,7 @@ function AiKinematicUpdater()
             }
 
             //move towards target location
-            var directionVec = new Vector2d(entity.motionRequest.target);
+            var directionVec = entity.motionRequest.target.clone();
             directionVec.subtractVector(entity.kinematicData.position);
             var distance = directionVec.length();
             directionVec.normalize();
@@ -117,7 +117,7 @@ function AiKinematicUpdater()
                 k.velocity.normalize();
                 k.velocity.multiply(distance);
             }
-            var moveVec = new Vector2d(k.velocity);
+            var moveVec = k.velocity.clone();
             moveVec.multiply(deltaRatio);
             k.position.addVector(moveVec);
         }

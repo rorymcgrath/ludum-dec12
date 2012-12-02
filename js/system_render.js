@@ -20,7 +20,7 @@ function CharacterRenderer()
             p = c.kinematicData.position;
             if(p.x > xLower && p.x < xUpper && p.y > yLower && p.y < yUpper)
             {
-                drawPos = new Vector2d(p);
+                drawPos = p.clone();
                 drawPos.subtractVector(camOffset);
                 context.translate(drawPos.x, drawPos.y);
                 context.rotate(c.kinematicData.orientation);
@@ -55,7 +55,7 @@ function TextRenderer()
             p = t.kinematicData.position;
             if(p.x > xLower && p.x < xUpper && p.y > yLower && p.y < yUpper)
             {
-                drawPos = new Vector2d(p);
+                drawPos = p.clone();
                 var textOffset = new Vector2d(
                     context.measureText(t.text.string) / 2, 0);
                 
@@ -85,7 +85,7 @@ function MenuTextRenderer()
             var p = t.kinematicData.position;
             var textWidth = context.measureText(t.text.string);
             var textOffset = new Vector2d(textWidth.width / 2, 0);
-            var drawPos = new Vector2d(p);
+            var drawPos = p.clone();
             drawPos.subtractVector(textOffset);
             
             context.fillStyle = t.text.color;

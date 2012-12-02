@@ -14,19 +14,19 @@ function InGameInputHandler()
         player.playerInput.left = false;
         
         //check if keys held down
-        if(inputMap[Consts.keys.W])
+        if(inputMap[Consts.Keys.W])
         {
             player.playerInput.up = true;
         }
-        if(inputMap[Consts.keys.A])
+        if(inputMap[Consts.Keys.A])
         {
             player.playerInput.left = true;
         }
-        if(inputMap[Consts.keys.S])
+        if(inputMap[Consts.Keys.S])
         {
             player.playerInput.down = true;
         }
-        if(inputMap[Consts.keys.D])
+        if(inputMap[Consts.Keys.D])
         {
             player.playerInput.right = true;
         }
@@ -40,7 +40,7 @@ function MenuInputHandler()
         for(var i = 0; i < inputQueue.length; ++i)
         {
             var e = inputQueue[i];
-            if(e[0] === Consts.keys.ENTER)
+            if(e[0] === Consts.Keys.ENTER)
             {
                 menu.continuePressed = true;
             }

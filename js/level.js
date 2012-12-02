@@ -37,7 +37,7 @@ function loadLevel(levelName)
     var tileData = new TileData();
     var furnitureData = new FurnitureData();
     var playerStartPosition = new Vector2d(0, 0);
-    var tSize = Consts.dimensions.tileSize;
+    var tSize = Consts.Dimensions.TILE_SIZE;
     
     var level = new World();
     level.tileData = tileData;
@@ -62,8 +62,8 @@ function loadLevel(levelName)
             tmp = imageData[index] << 16;
             tmp = tmp | (imageData[index + 1] << 8);
             tmp = tmp | imageData[index + 2];
-            var val = Consts.tileColours[tmp];
-            if(val >= Consts.tileColours.tileTypeCount)
+            var val = Consts.TileColours[tmp];
+            if(val >= Consts.TileColours.TILE_TYPE_COUNT)
             {
                 if(furnitureData.data[val].name === "PLAYER_START")
                 {

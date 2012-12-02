@@ -147,7 +147,7 @@ function LevelRenderer()
 {
     this.execute = function(canvas, context, level)
     {
-        var tSize = Consts.dimensions.tileSize;
+        var tSize = Consts.Dimensions.TILE_SIZE;
         var tiles = level.tiles;
 
         var camera = level.getEntity(World.TagNames.CAMERA);

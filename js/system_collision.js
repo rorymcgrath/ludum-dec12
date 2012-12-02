@@ -8,7 +8,7 @@ function PlayerCollision()
         bc = player.collision.volume;
         bcPos = bc.position.clone().addVector(player.kinematicData.position);
         
-        tSize = Consts.dimensions.TILE_SIZE;
+        tSize = Consts.Dimensions.TILE_SIZE;
         xUpper = Math.floor(Math.min((bcPos.x + bc.radius) / tSize, 
             level.tiles[0].length));
         xLower = Math.floor(Math.max((bcPos.x - bc.radius) / tSize, 0));

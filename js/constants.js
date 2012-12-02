@@ -1,6 +1,6 @@
 var Consts = 
 {
-    keys : 
+    Keys : 
     {
         LEFT : 37,
         RIGHT : 39,
@@ -14,9 +14,8 @@ var Consts =
         ENTER : 13,
         ESC : 27
     },
-    tileColours :
+    TileColours :
     {
-        tileTypeCount : 3,
         TILE_TYPE_COUNT : 3,
         
         0xffffff : 0,   //White
@@ -31,9 +30,8 @@ var Consts =
         0xe4abad : 8    //pink
         
     },
-    dimensions :
+    Dimensions :
     {
-        tileSize : 32,
         TILE_SIZE : 32
     }
 }
